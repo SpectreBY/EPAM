@@ -8,31 +8,65 @@ namespace EuclideanLib
 {
     public static class Euclidean
     {
-        public static int Solve(int a, int b)
+        /// <summary>
+        /// Поиск НОД для двух чисел
+        /// </summary>
+        /// <param name="_digit1"></param>
+        /// <param name="_digit2"></param>
+        /// <returns></returns>
+        public static int FindDeviderForTwoDigits(int _digit1, int _digit2)
         {
-            int A = a;
-            int B = b;
-            int C = 0;
-            int h = 1;
-            int result = 0;
-            while(true)
+            int digit1;
+            int digit2;
+            int digit3;
+            int degree;
+            int result;
+
+            if(_digit1 >= _digit2)
             {
-                C = A - B * h;
-                if(C >= B)
+                digit1 = _digit1;
+                digit2 = _digit2;
+            }
+            else
+            {
+                digit1 = _digit2;
+                digit2 = _digit1;
+            }
+
+            degree = digit1 / digit2;
+
+            while (true)
+            {
+                digit3 = digit1 - digit2 * degree;
+                if(digit3 >= digit2)
+                    degree++;
+                else if(digit3 == 0)
                 {
-                    h++;
-                }
-                else if(C == 0)
-                {
-                    result = B;
+                    result = digit2;
                     break;
                 }
                 else
                 {
-                    h = 1;
-                    A = B;
-                    B = C;
+                    degree = 1;
+                    digit1 = digit2;
+                    digit2 = digit3;
                 }
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// Поиск НОД для трех и более чисел
+        /// </summary>
+        /// <param name="digits"></param>
+        /// <returns></returns>
+        public static int FindDeviderForFewDigits(int[] digits)
+        {
+            int result = digits.First();
+
+            for (int i = 1; i < digits.Length; i++)
+            {
+                result = FindDeviderForTwoDigits(result, digits[i]);
             }
             return result;
         }

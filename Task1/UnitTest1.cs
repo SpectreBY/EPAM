@@ -8,10 +8,17 @@ namespace Task1
     public class UnitTest1
     {
         [TestMethod]
-        public void TestMethod1()
+        public void FindDeviderForTwoDigitsTest()
         {
-            int res = Euclidean.Solve(8, 4);
-            Assert.AreEqual(4, res);
+            int result = Euclidean.FindDeviderForTwoDigits(64, 48);
+            Assert.AreEqual(16, result);
+        }
+        [TestMethod]
+        public void FindDeviderForFewDigitsTest()
+        {
+            int[] testCase = new int[4] { 18, 12, 6, 24 };
+            int result = Euclidean.FindDeviderForFewDigits(testCase);
+            Assert.AreEqual(6, result);
         }
     }
 }
