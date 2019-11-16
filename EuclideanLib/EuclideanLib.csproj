@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BinaryGCD.cs" />
     <Compile Include="Euclidean.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
