@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="BinaryGCD.cs" />
     <Compile Include="Euclidean.cs" />
+    <Compile Include="Histogram.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

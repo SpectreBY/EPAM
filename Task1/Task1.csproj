@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BinaryGCDTest.cs" />
+    <Compile Include="HistogramTest .cs" />
     <Compile Include="EuclideanTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

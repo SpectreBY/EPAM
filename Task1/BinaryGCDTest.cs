@@ -44,6 +44,9 @@ namespace Task1
         }
         #endregion
 
+        /// <summary>
+        /// Тест метода получения НОД для двух чисел с помощью Бинарного алгоритма
+        /// </summary>
         [TestMethod]
         public void FindDeviderTest()
         { 

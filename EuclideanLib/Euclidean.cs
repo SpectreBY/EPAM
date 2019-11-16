@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace EuclideanLib
 {
+    /// <summary>
+    /// Класс для вычисления НОД с помощью алгоритма Эвклида
+    /// </summary>
     public static class Euclidean
     {
         /// <summary>

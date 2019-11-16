@@ -3,6 +3,9 @@ using System.Diagnostics;
 
 namespace EuclideanLib
 {
+    /// <summary>
+    /// Класс для вычисления НОД с помощью бинарного алгоритма
+    /// </summary>
     public static class BinaryGCD
     {
         /// <summary>

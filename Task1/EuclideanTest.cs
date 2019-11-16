@@ -101,7 +101,9 @@ namespace Task1
         }
         #endregion
 
-
+        /// <summary>
+        /// Тест метода получения НОД для двух чисел с помощью алгоритма Эвклида
+        /// </summary>
         [TestMethod]
         public void FindDeviderForTwoDigitsTest()
         {
@@ -118,6 +120,10 @@ namespace Task1
                                                                                                                                         time.TotalMilliseconds));
             }
         }
+
+        /// <summary>
+        /// Тест метода получения НОД для трех чисел с помощью алгоритма Эвклида
+        /// </summary>
         [TestMethod]
         public void FindDeviderForThreeDigitsTest()
         {
@@ -136,6 +142,10 @@ namespace Task1
                                                                                                                                                          time.TotalMilliseconds));
             }
         }
+
+        /// <summary>
+        /// Тест метода получения НОД для четырех чисел с помощью алгоритма Эвклида
+        /// </summary>
         [TestMethod]
         public void FindDeviderForFourDigitsTest()
         {
@@ -156,6 +166,10 @@ namespace Task1
                                                                                                                                                                           time.TotalMilliseconds));
             }
         }
+
+        /// <summary>
+        /// Тест метода получения НОД для пяти чисел с помощью алгоритма Эвклида
+        /// </summary>
         [TestMethod]
         public void FindDeviderForFiveDigitsTest()
         {
