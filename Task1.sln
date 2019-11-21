@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EuclideanLib", "EuclideanLi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Task2", "Task2\Task2.csproj", "{B58F7C7C-4052-44F6-9E47-8793179DC7F2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VectorLib", "VectorLib\VectorLib.csproj", "{BD5FC40A-3D29-41C3-8E84-F029573977CD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{B58F7C7C-4052-44F6-9E47-8793179DC7F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B58F7C7C-4052-44F6-9E47-8793179DC7F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B58F7C7C-4052-44F6-9E47-8793179DC7F2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BD5FC40A-3D29-41C3-8E84-F029573977CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD5FC40A-3D29-41C3-8E84-F029573977CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD5FC40A-3D29-41C3-8E84-F029573977CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD5FC40A-3D29-41C3-8E84-F029573977CD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
