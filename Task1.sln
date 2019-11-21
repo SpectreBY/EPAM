@@ -5,11 +5,11 @@ VisualStudioVersion = 16.0.29411.108
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Task1", "Task1\Task1.csproj", "{B23D1834-B399-41DF-A91F-4DA28D0A7E97}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EuclideanLib", "EuclideanLib\EuclideanLib.csproj", "{FC2D9028-50E0-4181-AD95-E8B435D34D27}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Task1Lib", "EuclideanLib\Task1Lib.csproj", "{FC2D9028-50E0-4181-AD95-E8B435D34D27}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Task2", "Task2\Task2.csproj", "{B58F7C7C-4052-44F6-9E47-8793179DC7F2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VectorLib", "VectorLib\VectorLib.csproj", "{BD5FC40A-3D29-41C3-8E84-F029573977CD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Task2Lib", "VectorLib\Task2Lib.csproj", "{BD5FC40A-3D29-41C3-8E84-F029573977CD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -58,9 +58,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\EuclideanLib\EuclideanLib.csproj">
+    <ProjectReference Include="..\EuclideanLib\Task1Lib.csproj">
       <Project>{fc2d9028-50e0-4181-ad95-e8b435d34d27}</Project>
-      <Name>EuclideanLib</Name>
+      <Name>Task1Lib</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
