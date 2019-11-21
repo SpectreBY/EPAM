@@ -37,7 +37,6 @@ namespace Task2
             Assert.IsTrue(expect.X == result.X &&
                           expect.Y == result.Y &&
                           expect.Z == result.Z);
-
         }
 
         /// <summary>
@@ -54,6 +53,19 @@ namespace Task2
         }
 
         /// <summary>
+        /// Тест на умножение вектора на число
+        /// </summary>
+        [TestMethod]
+        public void MultiplicationNumberTest()
+        {
+            Vector expect = new Vector(20, 40, 8);
+            Vector result = vector1 * 2;
+            Assert.IsTrue(expect.X == result.X &&
+                          expect.Y == result.Y &&
+                          expect.Z == result.Z);
+        }
+
+        /// <summary>
         /// Тест на деление векторов
         /// </summary>
         [TestMethod]
@@ -61,6 +73,19 @@ namespace Task2
         {
             Vector expect = new Vector(2, -2, 0.25);
             Vector result = vector1 / vector2;
+            Assert.IsTrue(expect.X == result.X &&
+                          expect.Y == result.Y &&
+                          expect.Z == result.Z);
+        }
+
+        /// <summary>
+        /// Тест на деление вектора на число
+        /// </summary>
+        [TestMethod]
+        public void DivisionNumberTest()
+        {
+            Vector expect = new Vector(5, 10, 2);
+            Vector result = vector1 / 2;
             Assert.IsTrue(expect.X == result.X &&
                           expect.Y == result.Y &&
                           expect.Z == result.Z);

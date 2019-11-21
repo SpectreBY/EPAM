@@ -93,6 +93,18 @@ namespace VectorLib
         }
 
         /// <summary>
+        /// Переопределение оператора "*" для умножения вектора на число
+        /// </summary>
+        public static Vector operator *(Vector vector1, double number)
+        {
+            double x = vector1.X * number;
+            double y = vector1.Y * number;
+            double z = vector1.Z * number;
+            Vector vector3 = new Vector(x, y, z);
+            return vector3;
+        }
+
+        /// <summary>
         /// Переопределение оператора "/" для деления векторов 
         /// </summary>
         public static Vector operator /(Vector vector1, Vector vector2)
@@ -100,6 +112,18 @@ namespace VectorLib
             double x = vector1.X / vector2.X;
             double y = vector1.Y / vector2.Y;
             double z = vector1.Z / vector2.Z;
+            Vector vector3 = new Vector(x, y, z);
+            return vector3;
+        }
+
+        /// <summary>
+        /// Переопределение оператора "/" для деления вектора на число
+        /// </summary>
+        public static Vector operator /(Vector vector1, double number2)
+        {
+            double x = vector1.X / number2;
+            double y = vector1.Y / number2;
+            double z = vector1.Z / number2;
             Vector vector3 = new Vector(x, y, z);
             return vector3;
         }
