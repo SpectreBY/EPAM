@@ -5,11 +5,11 @@ VisualStudioVersion = 16.0.29411.108
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Task1", "Task1\Task1.csproj", "{B23D1834-B399-41DF-A91F-4DA28D0A7E97}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Task1Lib", "EuclideanLib\Task1Lib.csproj", "{FC2D9028-50E0-4181-AD95-E8B435D34D27}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Task2", "Task2\Task2.csproj", "{B58F7C7C-4052-44F6-9E47-8793179DC7F2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Task2Lib", "VectorLib\Task2Lib.csproj", "{BD5FC40A-3D29-41C3-8E84-F029573977CD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Task1Lib", "Task1Lib\Task1Lib.csproj", "{0F22032A-6D1F-406B-B22E-59DC88CFE9E4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Task2Lib", "Task2Lib\Task2Lib.csproj", "{204A268E-B82F-46B0-8D3E-5337F3C5BCB8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,18 +21,18 @@ Global
 		{B23D1834-B399-41DF-A91F-4DA28D0A7E97}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B23D1834-B399-41DF-A91F-4DA28D0A7E97}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B23D1834-B399-41DF-A91F-4DA28D0A7E97}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FC2D9028-50E0-4181-AD95-E8B435D34D27}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FC2D9028-50E0-4181-AD95-E8B435D34D27}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FC2D9028-50E0-4181-AD95-E8B435D34D27}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FC2D9028-50E0-4181-AD95-E8B435D34D27}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B58F7C7C-4052-44F6-9E47-8793179DC7F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B58F7C7C-4052-44F6-9E47-8793179DC7F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B58F7C7C-4052-44F6-9E47-8793179DC7F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B58F7C7C-4052-44F6-9E47-8793179DC7F2}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BD5FC40A-3D29-41C3-8E84-F029573977CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BD5FC40A-3D29-41C3-8E84-F029573977CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BD5FC40A-3D29-41C3-8E84-F029573977CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BD5FC40A-3D29-41C3-8E84-F029573977CD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0F22032A-6D1F-406B-B22E-59DC88CFE9E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F22032A-6D1F-406B-B22E-59DC88CFE9E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0F22032A-6D1F-406B-B22E-59DC88CFE9E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0F22032A-6D1F-406B-B22E-59DC88CFE9E4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{204A268E-B82F-46B0-8D3E-5337F3C5BCB8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{204A268E-B82F-46B0-8D3E-5337F3C5BCB8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{204A268E-B82F-46B0-8D3E-5337F3C5BCB8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{204A268E-B82F-46B0-8D3E-5337F3C5BCB8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

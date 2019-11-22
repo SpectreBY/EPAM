@@ -1,4 +1,4 @@
-﻿using EuclideanLib;
+﻿using Task1Lib;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 

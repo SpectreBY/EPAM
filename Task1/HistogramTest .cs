@@ -1,5 +1,5 @@
 ﻿using System;
-using EuclideanLib;
+using Task1Lib;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Task1

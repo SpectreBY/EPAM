@@ -1,6 +1,6 @@
 ﻿using System;
-using EuclideanLib;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Task1Lib;
 
 namespace Task1
 {

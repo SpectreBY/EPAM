@@ -49,6 +49,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="PolynomialTest.cs" />
     <Compile Include="VectorTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -56,8 +57,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\VectorLib\Task2Lib.csproj">
-      <Project>{bd5fc40a-3d29-41c3-8e84-f029573977cd}</Project>
+    <ProjectReference Include="..\Task2Lib\Task2Lib.csproj">
+      <Project>{204a268e-b82f-46b0-8d3e-5337f3c5bcb8}</Project>
       <Name>Task2Lib</Name>
     </ProjectReference>
   </ItemGroup>

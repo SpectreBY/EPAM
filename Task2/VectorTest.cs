@@ -1,6 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using VectorLib;
+using Task2Lib;
 
 namespace Task2
 {
