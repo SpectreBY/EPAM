@@ -126,5 +126,29 @@ namespace Task2
             TestContext.WriteLine(p3.ToString());
             Assert.IsTrue(p3.Equals(assert));
         }
+
+        /// <summary>
+        /// Тест на равенство полиномов
+        /// </summary>
+        [TestMethod]
+        public void AreEqualTest()
+        {
+            Polynomial p1 = new Polynomial(poly1multiplie);
+            Polynomial p2 = new Polynomial(poly1multiplie);
+            bool assert = p1 == p2;
+            Assert.IsTrue(assert);
+        }
+
+        /// <summary>
+        /// Тест на неравенство полиномов
+        /// </summary>
+        [TestMethod]
+        public void ArenotEqualTest()
+        {
+            Polynomial p1 = new Polynomial(poly1multiplie);
+            Polynomial p2 = new Polynomial(poly2multiplie);
+            bool assert = p1 != p2;
+            Assert.IsTrue(assert);
+        }
     }
 }

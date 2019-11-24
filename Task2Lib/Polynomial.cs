@@ -129,6 +129,34 @@ namespace Task2Lib
         }
 
         /// <summary>
+        /// Оператор сравнения многочленов на равенство
+        /// </summary>
+        /// <param name="polynomial1"></param>
+        /// <param name="polynomial2"></param>
+        /// <returns></returns>
+        public static bool operator ==(Polynomial polynomial1, Polynomial polynomial2)
+        {
+            if (polynomial1.Equals(polynomial2))
+                return true;
+            else
+                return false;
+        }
+
+        /// <summary>
+        /// Оператор сравнения многочленов на неравенство
+        /// </summary>
+        /// <param name="polynomial1"></param>
+        /// <param name="polynomial2"></param>
+        /// <returns></returns>
+        public static bool operator !=(Polynomial polynomial1, Polynomial polynomial2)
+        {
+            if (polynomial1.Equals(polynomial2))
+                return false;
+            else
+                return true;
+        }
+
+        /// <summary>
         /// Метод сравнения многочленов на равность
         /// </summary>
         /// <param name="polynomial"></param>
@@ -137,7 +165,8 @@ namespace Task2Lib
         {
             for(int i = 0; i < polynomial.PolynomialCoefs.GetLength(0); i++)
             {
-                if (polynomial.PolynomialCoefs[i, 0] != polynomialCoefs[i, 0])
+                if (polynomial.PolynomialCoefs[i, 0] != polynomialCoefs[i, 0] ||
+                    polynomial.PolynomialCoefs[i, 1] != polynomialCoefs[i, 1])
                     return false;
             }
             return true;
