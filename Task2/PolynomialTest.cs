@@ -84,6 +84,10 @@ namespace Task2
         }
         #endregion
 
+
+        /// <summary>
+        /// Тест на сложение полиномов
+        /// </summary>
         [TestMethod]
         public void AdditionTest()
         {
@@ -94,7 +98,10 @@ namespace Task2
             TestContext.WriteLine(p3.ToString());
             Assert.IsTrue(p3.Equals(assert));
         }
-
+        
+        /// <summary>
+        /// Тест на вычитание полиномов
+        /// </summary>
         [TestMethod]
         public void SubtractionTest()
         {
@@ -106,6 +113,9 @@ namespace Task2
             Assert.IsTrue(p3.Equals(assert));
         }
 
+        /// <summary>
+        /// Тест на умножение полиномов
+        /// </summary>
         [TestMethod]
         public void MultiplieTest()
         {

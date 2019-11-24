@@ -8,6 +8,9 @@ namespace Task2Lib
 {
     public class Polynomial
     {
+        /// <summary>
+        /// Коэффециенты и степени полинома в виде двойного массива (1 - коэффициент, 2 - его степень)
+        /// </summary>
         private double[,] polynomialCoefs;
 
         public Polynomial(double[,] polynomialCoefs)
@@ -19,21 +22,13 @@ namespace Task2Lib
         {
             get { return polynomialCoefs; }
         }
-
-        private double[,] FillDegrees(double[] coefs)
-        {
-            int degree = coefs.Length - 1;
-            double[,] array = new double[coefs.Length, 2];
-
-            for(int i = 0; i < coefs.Length; i++)
-            {
-                array[i, 0] = coefs[i];
-                array[i, 1] = degree;
-                degree--;
-            }
-            return array;
-        }
-
+        
+        /// <summary>
+        /// Оператор сложения многочленов
+        /// </summary>
+        /// <param name="polynomial1"></param>
+        /// <param name="polynomial2"></param>
+        /// <returns></returns>
         public static Polynomial operator +(Polynomial polynomial1, Polynomial polynomial2)
         {
             Polynomial polynomial3;
@@ -67,7 +62,13 @@ namespace Task2Lib
             polynomial3 = new Polynomial(polynomial3coefs);
             return polynomial3;
         }
-
+        
+        /// <summary>
+        /// Оператор вычитания многочленов
+        /// </summary>
+        /// <param name="polynomial1"></param>
+        /// <param name="polynomial2"></param>
+        /// <returns></returns>
         public static Polynomial operator -(Polynomial polynomial1, Polynomial polynomial2)
         {
             Polynomial polynomial3;
@@ -101,7 +102,13 @@ namespace Task2Lib
             polynomial3 = new Polynomial(polynomial3coefs);
             return polynomial3;
         }
-
+        
+        /// <summary>
+        /// Оператор умножения мночленов
+        /// </summary>
+        /// <param name="polynomial1"></param>
+        /// <param name="polynomial2"></param>
+        /// <returns></returns>
         public static Polynomial operator *(Polynomial polynomial1, Polynomial polynomial2)
         {
             Polynomial polynomial3;
@@ -121,7 +128,11 @@ namespace Task2Lib
             return polynomial3;
         }
 
-
+        /// <summary>
+        /// Метод сравнения многочленов на равность
+        /// </summary>
+        /// <param name="polynomial"></param>
+        /// <returns></returns>
         public bool Equals(Polynomial polynomial)
         {
             for(int i = 0; i < polynomial.PolynomialCoefs.GetLength(0); i++)
@@ -132,6 +143,10 @@ namespace Task2Lib
             return true;
         }
 
+        /// <summary>
+        /// Метод вывода многочлена в виде строки
+        /// </summary>
+        /// <returns></returns>
         public override string ToString()
         {
             StringBuilder builder = new StringBuilder();
