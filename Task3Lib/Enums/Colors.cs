@@ -6,6 +6,8 @@ namespace Task3Lib.Enums
 {
     enum Colors
     {
+        Colorless,
+        White,
         Red,
         Green,
         Blue
