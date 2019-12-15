@@ -10,9 +10,41 @@ namespace Task3FiguresLib.Figures
     public class Circle : Figure
     {
         private double radius;
+
         public Circle(Materials material, double radius) : base(material)
         {
             this.radius = radius;
+        }
+
+        public Circle(Figure figure) : base(figure)
+        {
+            if (figure is Square)
+            {
+                Square square = (Square)figure;
+                radius = square.Side / 2;
+                Material = square.Material;
+                Color = square.Color;
+            }
+            if (figure is Circle)
+            {
+                Circle circle = (Circle)figure;
+                radius = circle.Radius * PERCENT_FROM_VALUE;
+                Material = circle.Material;
+                Color = circle.Color;
+            }
+            if (figure is Triangle)
+            {
+                Triangle triangle = (Triangle)figure;
+                radius = triangle.Side / (2 * Math.Sqrt(3));
+                Material = triangle.Material;
+                Color = triangle.Color;
+            }
+        }
+
+        public double Radius
+        {
+            get { return radius; }
+            set { radius = value; }
         }
 
         public override double GetPerimetr()

@@ -16,6 +16,37 @@ namespace Task3FiguresLib.Figures
             this.side = side;
         }
 
+        public Square(Figure figure): base(figure)
+        {
+            if (figure is Square)
+            {
+                Square square = (Square)figure;
+                side = square.Side * PERCENT_FROM_VALUE;
+                Material = square.Material;
+                Color = square.Color;
+            }
+            if (figure is Circle)
+            {
+                Circle circle = (Circle)figure;
+                side = 2 * circle.Radius / Math.Sqrt(2);
+                Material = circle.Material;
+                Color = circle.Color;
+            }
+            if (figure is Triangle)
+            {
+                Triangle triangle = (Triangle)figure;
+                side = triangle.Side / 2;
+                Material = triangle.Material;
+                Color = triangle.Color;
+            }
+        }
+
+        public double Side
+        {
+            get { return side; }
+            set { side = value; }
+        }
+
         public override void ToPaint(Colors color)
         {
             base.ToPaint(color);

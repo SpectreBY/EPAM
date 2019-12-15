@@ -12,10 +12,43 @@ namespace Task3FiguresLib.Figures
         private double side;
         private double height;
 
-        public Triangle(Materials material, double side, double height) : base(material)
+        public Triangle(Materials material, double side) : base(material)
         {
             this.side = side;
-            this.height = height;
+            this.height = (Math.Sqrt(3) * side) / 2;
+        }
+
+        public Triangle(Figure figure) : base(figure)
+        {
+            if (figure is Square)
+            {
+                Square square = (Square)figure;
+                side = square.Side;
+                height = (Math.Sqrt(3) * side) / 2;
+                Material = square.Material;
+                Color = square.Color;
+            }
+            if (figure is Circle)
+            {
+                Circle circle = (Circle)figure;
+                side = (circle.Radius * 3) / Math.Sqrt(3);
+                height = (Math.Sqrt(3) * side) / 2;
+                Material = circle.Material;
+                Color = circle.Color;
+            }
+            if (figure is Triangle)
+            {
+                Triangle triangle = (Triangle)figure;
+                side = triangle.Side * PERCENT_FROM_VALUE;
+                Material = triangle.Material;
+                Color = triangle.Color;
+            }
+        }
+
+        public double Side
+        {
+            get { return side; }
+            set { side = value; }
         }
 
         public override double GetPerimetr()

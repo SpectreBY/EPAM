@@ -7,15 +7,9 @@ using Task3EnumsLib.Enums;
 
 namespace Task3FiguresLib.Figures
 {
-    class ColorException: Exception
-    {
-        public ColorException(string message)
-        : base(message)
-        { }
-    }
-
     public abstract class Figure
     {
+        public const double PERCENT_FROM_VALUE = 0.9;
         private bool wasPainted;
 
         public Figure(Materials material)
@@ -31,11 +25,9 @@ namespace Task3FiguresLib.Figures
                 Color = Colors.Colorless;
             }
         }
-        public Figure(Figure figure)
-        {
-            
-        }
 
+        public Figure(Figure figure)
+        {  }
 
         public Colors Color { get; set; }
 
@@ -50,7 +42,7 @@ namespace Task3FiguresLib.Figures
             }
             else
             {
-                throw new ColorException("Данная фигура уже покрашена");
+                throw new Exception("Данная фигура уже покрашена");
             }
         }
 
