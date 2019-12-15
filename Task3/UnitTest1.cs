@@ -20,7 +20,7 @@ namespace Task3
             Box.AddFigure(square3);
             Box.SaveFiguresByXmlWriter();
             Box.SaveFiguresByStreamWriter();
-            Box.ReadFiguresByXmlReader();
+            Box.ReadFiguresByStreamReader();
 
         }
     }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Xml;
 using Task3EnumsLib.Enums;
 using Task3FiguresLib.Figures;
@@ -126,12 +127,13 @@ namespace Task3FiguresLib
         {
             string path = "figuresStreamWriter.xml";
             StreamWriter writer = new StreamWriter(path);
+            writer.WriteLine(string.Format("<?xml version={0}1.0{1} encoding={2}utf-8{3} ?>", @"""", @"""", @"""", @""""));
             writer.WriteLine("<figures>");
             foreach (var figure in figures)
             {
-                writer.WriteLine("<figure>");
+                writer.WriteLine("  <figure>");
                 figure.WriteByStreamWriter(writer);
-                writer.WriteLine("</figure>");
+                writer.WriteLine("  </figure>");
             }
             writer.WriteLine("</figures>");
             writer.Close();
@@ -197,6 +199,64 @@ namespace Task3FiguresLib
                         figures.Add(triangle);
                     }
                 }  
+            }
+        }
+
+        public static void ReadFiguresByStreamReader()
+        {
+            string path = "figuresStreamWriter.xml";
+            Regex tag = new Regex(@"<[0-9a-zA-Z]+>");
+            Regex value = new Regex(@"[\^\>][0-9a-zA-Z]+");
+            StreamReader reader = new StreamReader(path);
+            string file = reader.ReadToEnd();
+            string[] items = file.Split( new string[] { "<figure>" }, StringSplitOptions.RemoveEmptyEntries);
+            for(int i = 1; i < items.Length; i++)
+            {
+                string[] block = items[i].Split(new string[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
+
+                List<string> values = new List<string>();
+                for (int j = 0; j < block.Length; j++)
+                {
+                    if (value.IsMatch(block[j]))
+                    {
+                        values.Add(value.Match(block[j]).Value.Remove(0, 1));
+                    }
+                }
+
+                Colors color = (Colors)Enum.Parse(typeof(Colors), values[1]);
+                Materials material = (Materials)Enum.Parse(typeof(Materials), values[2]);
+
+                if(values.First() == "Square")
+                {
+                    double squareSide = Convert.ToDouble(values[3]);
+                    Square square = new Square(material, squareSide);
+                    if (material == Materials.Paper)
+                    {
+                        square.ToPaint(color);
+                    }
+                    figures.Add(square);
+                }
+                else if (values.First() == "Circle")
+                {
+                    double circleRadius = Convert.ToDouble(values[3]);
+                    Circle circle = new Circle(material, circleRadius);
+                    if (material == Materials.Paper)
+                    {
+                        circle.ToPaint(color);
+                    }
+                    figures.Add(circle);
+                }
+                else if (values.First() == "Triangle")
+                {
+                    double triangleSide = Convert.ToDouble(values[3]);
+                    double triangleHeight = Convert.ToDouble(values[4]);
+                    Triangle triangle = new Triangle(material, triangleSide, triangleHeight);
+                    if (material == Materials.Paper)
+                    {
+                        triangle.ToPaint(color);
+                    }
+                    figures.Add(triangle);
+                }
             }
         }
     }

@@ -42,13 +42,13 @@ namespace Task3FiguresLib.Figures
 
         public override void WriteByStreamWriter(StreamWriter writer)
         {
-            writer.WriteLine(string.Format("        <figuretype>{0}</figuretype>", "Triangle"));
-            writer.WriteLine(string.Format("            <color>{0}</color>", Color.ToString()));
-            writer.WriteLine(string.Format("            <material>{0}</material>", Material.ToString()));
-            writer.WriteLine(string.Format("            <height>{0}</height>", height));
-            writer.WriteLine(string.Format("            <a>{0}</a>", side));
-            writer.WriteLine(string.Format("            <b>{0}</a>", side));
-            writer.WriteLine(string.Format("            <c>{0}</a>", side));
+            writer.WriteLine(string.Format("    <figuretype>{0}</figuretype>", "Triangle"));
+            writer.WriteLine(string.Format("    <color>{0}</color>", Color.ToString()));
+            writer.WriteLine(string.Format("    <material>{0}</material>", Material.ToString()));
+            writer.WriteLine(string.Format("    <height>{0}</height>", height));
+            writer.WriteLine(string.Format("    <a>{0}</a>", side));
+            writer.WriteLine(string.Format("    <b>{0}</a>", side));
+            writer.WriteLine(string.Format("    <c>{0}</a>", side));
         }
 
         public override void WriteByXmlWriter(XmlWriter writer)
