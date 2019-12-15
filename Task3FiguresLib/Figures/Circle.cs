@@ -7,15 +7,30 @@ using Task3EnumsLib.Enums;
 
 namespace Task3FiguresLib.Figures
 {
+    /// <summary>
+    /// Class that represents circle figure
+    /// </summary>
     public class Circle : Figure
     {
+        /// <summary>
+        /// A variable which contains radius of the circle
+        /// </summary>
         private double radius;
 
+        /// <summary>
+        /// Constructor for announcement of figure object with input material and radius value
+        /// </summary>
+        /// <param name="material"></param>
+        /// <param name="radius"></param>
         public Circle(Materials material, double radius) : base(material)
         {
             this.radius = radius;
         }
 
+        /// <summary>
+        /// Constructor for announcement of figure object with input figure
+        /// </summary>
+        /// <param name="figure"></param>
         public Circle(Figure figure) : base(figure)
         {
             if (figure is Square)
@@ -41,34 +56,48 @@ namespace Task3FiguresLib.Figures
             }
         }
 
+        /// <summary>
+        /// Property for acsess to radius variable
+        /// </summary>
         public double Radius
         {
             get { return radius; }
             set { radius = value; }
         }
 
+        /// <summary>
+        /// Method for get sum of perimetr
+        /// </summary>
+        /// <returns></returns>
         public override double GetPerimetr()
         {
             double perimetr = 2 * Math.PI * radius;
             return perimetr;
         }
 
+        /// <summary>
+        /// Method for get sum of square
+        /// </summary>
+        /// <returns></returns>
         public override double GetSquare()
         {
             double square = Math.PI * Math.Pow(radius, 2);
             return square;
         }
 
-        public override void ReadByStreamReader()
+        /// <summary>
+        /// Method for painting figure
+        /// </summary>
+        /// <param name="color"></param>
+        public override void ToPaint(Colors color)
         {
-            throw new NotImplementedException();
+            base.ToPaint(color);
         }
 
-        public override void ReadByXmlReader()
-        {
-            throw new NotImplementedException();
-        }
-
+        /// <summary>
+        /// Method for write characteristics to xml file by StreamWriter
+        /// </summary>
+        /// <param name="writer"></param>
         public override void WriteByStreamWriter(StreamWriter writer)
         {
             writer.WriteLine(string.Format("    <figuretype>{0}</figuretype>", "Circle"));
@@ -77,6 +106,10 @@ namespace Task3FiguresLib.Figures
             writer.WriteLine(string.Format("    <radius>{0}</radius>", radius));
         }
 
+        /// <summary>
+        /// Method for write characteristics to xml file by XmlWriter
+        /// </summary>
+        /// <param name="writer"></param>
         public override void WriteByXmlWriter(XmlWriter writer)
         {
             writer.WriteStartElement("figuretype");

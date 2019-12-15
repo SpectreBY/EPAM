@@ -4,6 +4,9 @@ using System.Text;
 
 namespace Task3EnumsLib.Enums
 {
+    /// <summary>
+    /// Enumeration of color names
+    /// </summary>
     public enum Colors
     {
         Colorless,

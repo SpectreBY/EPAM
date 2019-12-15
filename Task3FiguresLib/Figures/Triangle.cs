@@ -9,15 +9,31 @@ namespace Task3FiguresLib.Figures
 {
     public class Triangle : Figure
     {
+        /// <summary>
+        /// A variable which contains lenght of side of the triangle
+        /// </summary>
         private double side;
+
+        /// <summary>
+        /// A variable which contains height of the triangle
+        /// </summary>
         private double height;
 
+        /// <summary>
+        /// Constructor for announcement of figure object with input material and side value
+        /// </summary>
+        /// <param name="material"></param>
+        /// <param name="side"></param>
         public Triangle(Materials material, double side) : base(material)
         {
             this.side = side;
             this.height = (Math.Sqrt(3) * side) / 2;
         }
 
+        /// <summary>
+        /// Constructor for announcement of figure object with input figure
+        /// </summary>
+        /// <param name="figure"></param>
         public Triangle(Figure figure) : base(figure)
         {
             if (figure is Square)
@@ -45,34 +61,48 @@ namespace Task3FiguresLib.Figures
             }
         }
 
+        /// <summary>
+        /// Property for acsess to side variable
+        /// </summary>
         public double Side
         {
             get { return side; }
             set { side = value; }
         }
 
+        /// <summary>
+        /// Method for painting figure
+        /// </summary>
+        /// <param name="color"></param>
+        public override void ToPaint(Colors color)
+        {
+            base.ToPaint(color);
+        }
+
+        /// <summary>
+        /// Method for get sum of perimetr
+        /// </summary>
+        /// <returns></returns>
         public override double GetPerimetr()
         {
             double perimetr = 3 * side;
             return perimetr;
         }
 
+        /// <summary>
+        /// Method for get sum of square
+        /// </summary>
+        /// <returns></returns>
         public override double GetSquare()
         {
             double square = 1/2 * side * height;
             return square;
         }
 
-        public override void ReadByStreamReader()
-        {
-            throw new NotImplementedException();
-        }
-
-        public override void ReadByXmlReader()
-        {
-            
-        }
-
+        /// <summary>
+        /// Method for write characteristics to xml file by StreamWriter
+        /// </summary>
+        /// <param name="writer"></param>
         public override void WriteByStreamWriter(StreamWriter writer)
         {
             writer.WriteLine(string.Format("    <figuretype>{0}</figuretype>", "Triangle"));
@@ -84,6 +114,10 @@ namespace Task3FiguresLib.Figures
             writer.WriteLine(string.Format("    <c>{0}</a>", side));
         }
 
+        /// <summary>
+        /// Method for write characteristics to xml file by XmlWriter
+        /// </summary>
+        /// <param name="writer"></param>
         public override void WriteByXmlWriter(XmlWriter writer)
         {
             writer.WriteStartElement("figuretype");
