@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Xml;
-using Task3Lib.Enums;
+using Task3EnumsLib.Enums;
 
-namespace Task3Lib.Figures
+namespace Task3FiguresLib.Figures
 {
-    class Square : Figure
+    public class Square : Figure
     {
         private double side;
 
@@ -35,17 +35,19 @@ namespace Task3Lib.Figures
 
         public override void WriteByXmlWriter(XmlWriter writer)
         {
-            base.WriteByXmlWriter(writer);
-            writer.WriteStartElement("A");
+            writer.WriteStartElement("figuretype");
+            writer.WriteValue("Square");
+            writer.WriteEndElement();
+            writer.WriteStartElement("a");
             writer.WriteValue(side);
             writer.WriteEndElement();
-            writer.WriteStartElement("B");
+            writer.WriteStartElement("b");
             writer.WriteValue(side);
             writer.WriteEndElement();
-            writer.WriteStartElement("C");
+            writer.WriteStartElement("c");
             writer.WriteValue(side);
             writer.WriteEndElement();
-            writer.WriteStartElement("D");
+            writer.WriteStartElement("d");
             writer.WriteValue(side);
             writer.WriteEndElement();
         }
@@ -57,11 +59,11 @@ namespace Task3Lib.Figures
 
         public override void WriteByStreamWriter(StreamWriter writer)
         {
-            base.WriteByStreamWriter(writer);
-            writer.WriteLine(string.Format("<a>{0}</a>", side));
-            writer.WriteLine(string.Format("<b>{0}</a>", side));
-            writer.WriteLine(string.Format("<c>{0}</a>", side));
-            writer.WriteLine(string.Format("<d>{0}</a>", side));
+            writer.WriteLine(string.Format("    <figure>{0}</figure>", "Square"));
+            writer.WriteLine(string.Format("        <a>{0}</a>", side));
+            writer.WriteLine(string.Format("        <b>{0}</a>", side));
+            writer.WriteLine(string.Format("        <c>{0}</a>", side));
+            writer.WriteLine(string.Format("        <d>{0}</a>", side));
         }
 
         public override void ReadByStreamReader()

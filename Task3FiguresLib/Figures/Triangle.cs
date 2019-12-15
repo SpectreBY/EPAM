@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Xml;
-using Task3Lib.Enums;
+using Task3EnumsLib.Enums;
 
-namespace Task3Lib.Figures
+namespace Task3FiguresLib.Figures
 {
-    class Triangle : Figure
+    public class Triangle : Figure
     {
         private double side;
         private double height;
@@ -42,26 +42,28 @@ namespace Task3Lib.Figures
 
         public override void WriteByStreamWriter(StreamWriter writer)
         {
-            base.WriteByStreamWriter(writer);
-            writer.WriteLine(string.Format("<height>{0}</height>", height));
-            writer.WriteLine(string.Format("<b>{0}</a>", side));
-            writer.WriteLine(string.Format("<c>{0}</a>", side));
-            writer.WriteLine(string.Format("<d>{0}</a>", side));
+            writer.WriteLine(string.Format("    <figure>{0}</figure>", "Triangle"));
+            writer.WriteLine(string.Format("        <height>{0}</height>", height));
+            writer.WriteLine(string.Format("        <a>{0}</a>", side));
+            writer.WriteLine(string.Format("        <b>{0}</a>", side));
+            writer.WriteLine(string.Format("        <c>{0}</a>", side));
         }
 
         public override void WriteByXmlWriter(XmlWriter writer)
         {
-            base.WriteByXmlWriter(writer);
-            writer.WriteStartElement("Height");
+            writer.WriteStartElement("figuretype");
+            writer.WriteValue("Triangle");
+            writer.WriteEndElement();
+            writer.WriteStartElement("height");
             writer.WriteValue(height);
             writer.WriteEndElement();
-            writer.WriteStartElement("A");
+            writer.WriteStartElement("a");
             writer.WriteValue(side);
             writer.WriteEndElement();
-            writer.WriteStartElement("B");
+            writer.WriteStartElement("b");
             writer.WriteValue(side);
             writer.WriteEndElement();
-            writer.WriteStartElement("C");
+            writer.WriteStartElement("c");
             writer.WriteValue(side);
             writer.WriteEndElement();
         }

@@ -5,7 +5,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{047CD4DC-F16D-4FE5-9780-F671DBE09C94}</ProjectGuid>
+    <ProjectGuid>{CFD1B9E1-D303-4D72-9ECF-0E1BB7B80B03}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Task3</RootNamespace>
@@ -20,7 +20,6 @@
     <TestProjectType>UnitTest</TestProjectType>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -56,6 +55,16 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Task3EnumsLib\Task3EnumsLib.csproj">
+      <Project>{9a7cc23b-413b-4b9e-8922-05d32c561521}</Project>
+      <Name>Task3EnumsLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Task3FiguresLib\Task3FiguresLib.csproj">
+      <Project>{49e4aaa7-b910-4a44-ae3c-e7ad09ba198f}</Project>
+      <Name>Task3FiguresLib</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

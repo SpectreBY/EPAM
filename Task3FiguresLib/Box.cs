@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Xml;
-using Task3Lib.Enums;
-using Task3Lib.Figures;
+using Task3EnumsLib.Enums;
+using Task3FiguresLib.Figures;
 
-namespace Task3Lib
+namespace Task3FiguresLib
 {
-    class Box
+    public class Box
     {
         private static List<Figure> figures = new List<Figure>();
 
@@ -107,10 +107,14 @@ namespace Task3Lib
             string path = "figuresXmlWriter.xml";
             XmlWriter writer = XmlWriter.Create(path);
             writer.WriteStartDocument();
-            foreach(var figure in figures)
+            writer.WriteStartElement("figures");
+            foreach (var figure in figures)
             {
+                writer.WriteStartElement("figure");
                 figure.WriteByXmlWriter(writer);
+                writer.WriteEndElement();
             }
+            writer.WriteEndElement();
             writer.WriteEndDocument();
             writer.Close();
         }
@@ -119,11 +123,46 @@ namespace Task3Lib
         {
             string path = "figuresStreamWriter.xml";
             StreamWriter writer = new StreamWriter(path);
+            writer.WriteLine("<figures>");
             foreach (var figure in figures)
             {
                 figure.WriteByStreamWriter(writer);
             }
+            writer.WriteLine("</figures>");
             writer.Close();
+        }
+
+        public static void ReadFiguresByXmlReader()
+        {
+            string path = "figuresXmlWriter.xml";
+            XmlReader reader = XmlReader.Create(path);
+            while (reader.Read())
+            {
+                if (reader.Name == "figure")
+                {
+                    XmlDocument document = new XmlDocument();
+                    document.LoadXml(reader.ReadOuterXml());
+                    XmlNode node = document.SelectSingleNode("figure");
+                    XmlNode figuretype = node.SelectSingleNode("figuretype");
+                    switch(figuretype.InnerText)
+                    {
+                        case "Square":
+                            XmlNode squareSide = node.SelectSingleNode("a");
+                            double squareSideValue = Convert.ToDouble(squareSide.InnerText);
+                            figures.Add(new Square(Materials.Paper, squareSideValue));
+                            break;
+                        case "Circle":
+                            XmlNode radius = node.SelectSingleNode("radius");    
+                            break;
+                        case "Triangle":
+                            XmlNode height = node.SelectSingleNode("height");
+                            XmlNode triangleSide = node.SelectSingleNode("a");
+                            break;
+                        default:
+                            break;
+                    }
+                }  
+            }
         }
     }
 }

@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Xml;
-using Task3Lib.Enums;
+using Task3EnumsLib.Enums;
 
-namespace Task3Lib.Figures
+namespace Task3FiguresLib.Figures
 {
-    class Circle : Figure
+    public class Circle : Figure
     {
         private double radius;
         public Circle(Materials material, double radius) : base(material)
@@ -39,14 +39,16 @@ namespace Task3Lib.Figures
 
         public override void WriteByStreamWriter(StreamWriter writer)
         {
-            base.WriteByStreamWriter(writer);
-            writer.WriteLine(string.Format("<radius>{0}</radius>", radius));
+            writer.WriteLine(string.Format("    <figure>{0}</figure>", "Circle"));
+            writer.WriteLine(string.Format("        <radius>{0}</radius>", radius));
         }
 
         public override void WriteByXmlWriter(XmlWriter writer)
         {
-            base.WriteByXmlWriter(writer);
-            writer.WriteStartElement("Radius");
+            writer.WriteStartElement("figuretype");
+            writer.WriteValue("Circle");
+            writer.WriteEndElement();
+            writer.WriteStartElement("radius");
             writer.WriteValue(radius);
             writer.WriteEndElement();
         }
