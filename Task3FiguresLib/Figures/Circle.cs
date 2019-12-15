@@ -39,14 +39,22 @@ namespace Task3FiguresLib.Figures
 
         public override void WriteByStreamWriter(StreamWriter writer)
         {
-            writer.WriteLine(string.Format("    <figure>{0}</figure>", "Circle"));
-            writer.WriteLine(string.Format("        <radius>{0}</radius>", radius));
+            writer.WriteLine(string.Format("        <figuretype>{0}</figuretype>", "Circle"));
+            writer.WriteLine(string.Format("            <color>{0}</color>", Color.ToString()));
+            writer.WriteLine(string.Format("            <material>{0}</material>", Material.ToString()));
+            writer.WriteLine(string.Format("            <radius>{0}</radius>", radius));
         }
 
         public override void WriteByXmlWriter(XmlWriter writer)
         {
             writer.WriteStartElement("figuretype");
             writer.WriteValue("Circle");
+            writer.WriteEndElement();
+            writer.WriteStartElement("color");
+            writer.WriteValue(Color.ToString());
+            writer.WriteEndElement();
+            writer.WriteStartElement("material");
+            writer.WriteValue(Material.ToString());
             writer.WriteEndElement();
             writer.WriteStartElement("radius");
             writer.WriteValue(radius);

@@ -105,7 +105,10 @@ namespace Task3FiguresLib
         public static void SaveFiguresByXmlWriter()
         {
             string path = "figuresXmlWriter.xml";
-            XmlWriter writer = XmlWriter.Create(path);
+            XmlWriter writer;
+            XmlWriterSettings writerSettings = new XmlWriterSettings();
+            writerSettings.Indent = true;
+            writer = XmlWriter.Create(path, writerSettings);
             writer.WriteStartDocument();
             writer.WriteStartElement("figures");
             foreach (var figure in figures)
@@ -126,7 +129,9 @@ namespace Task3FiguresLib
             writer.WriteLine("<figures>");
             foreach (var figure in figures)
             {
+                writer.WriteLine("<figure>");
                 figure.WriteByStreamWriter(writer);
+                writer.WriteLine("</figure>");
             }
             writer.WriteLine("</figures>");
             writer.Close();
@@ -134,7 +139,7 @@ namespace Task3FiguresLib
 
         public static void ReadFiguresByXmlReader()
         {
-            string path = "figuresXmlWriter.xml";
+            string path = "figuresXmlWriter.xml";           
             XmlReader reader = XmlReader.Create(path);
             while (reader.Read())
             {
@@ -143,23 +148,53 @@ namespace Task3FiguresLib
                     XmlDocument document = new XmlDocument();
                     document.LoadXml(reader.ReadOuterXml());
                     XmlNode node = document.SelectSingleNode("figure");
-                    XmlNode figuretype = node.SelectSingleNode("figuretype");
-                    switch(figuretype.InnerText)
+                    XmlNode figureTypeNode = node.SelectSingleNode("figuretype");
+                    XmlNode colorNode = node.SelectSingleNode("color");
+                    XmlNode materialNode = node.SelectSingleNode("material");
+
+                    Colors color = (Colors)Enum.Parse(typeof(Colors), colorNode.InnerText);
+                    Materials material = (Materials)Enum.Parse(typeof(Materials), materialNode.InnerText);
+
+                    if (figureTypeNode.InnerText == "Square")
                     {
-                        case "Square":
-                            XmlNode squareSide = node.SelectSingleNode("a");
-                            double squareSideValue = Convert.ToDouble(squareSide.InnerText);
-                            figures.Add(new Square(Materials.Paper, squareSideValue));
-                            break;
-                        case "Circle":
-                            XmlNode radius = node.SelectSingleNode("radius");    
-                            break;
-                        case "Triangle":
-                            XmlNode height = node.SelectSingleNode("height");
-                            XmlNode triangleSide = node.SelectSingleNode("a");
-                            break;
-                        default:
-                            break;
+                        XmlNode squareSideNode = node.SelectSingleNode("a");
+                        double squareSide = Convert.ToDouble(squareSideNode.InnerText);
+
+                        Square square = new Square(material, squareSide);
+                        if(material == Materials.Paper)
+                        {
+                            square.ToPaint(color);
+                        }
+
+                        figures.Add(square);
+                    }
+                    if (figureTypeNode.InnerText == "Circle")
+                    {
+                        XmlNode circleRadiusNode = node.SelectSingleNode("radius");
+                        double circleRadius = Convert.ToDouble(circleRadiusNode.InnerText);
+
+                        Circle circle = new Circle(material, circleRadius);
+                        if (material == Materials.Paper)
+                        {
+                            circle.ToPaint(color);
+                        }
+
+                        figures.Add(circle);
+                    }
+                    if (figureTypeNode.InnerText == "Triangle")
+                    {
+                        XmlNode triangleSideNode = node.SelectSingleNode("a");
+                        XmlNode triangleHeightNode = node.SelectSingleNode("height");
+                        double triangleSide = Convert.ToDouble(triangleSideNode.InnerText);
+                        double triangleHeight = Convert.ToDouble(triangleHeightNode.InnerText);
+
+                        Triangle triangle = new Triangle(material, triangleSide, triangleHeight);
+                        if (material == Materials.Paper)
+                        {
+                            triangle.ToPaint(color);
+                        }
+
+                        figures.Add(triangle);
                     }
                 }  
             }

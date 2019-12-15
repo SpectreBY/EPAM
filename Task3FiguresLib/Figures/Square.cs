@@ -38,6 +38,12 @@ namespace Task3FiguresLib.Figures
             writer.WriteStartElement("figuretype");
             writer.WriteValue("Square");
             writer.WriteEndElement();
+            writer.WriteStartElement("color");
+            writer.WriteValue(Color.ToString());
+            writer.WriteEndElement();
+            writer.WriteStartElement("material");
+            writer.WriteValue(Material.ToString());
+            writer.WriteEndElement();
             writer.WriteStartElement("a");
             writer.WriteValue(side);
             writer.WriteEndElement();
@@ -59,11 +65,13 @@ namespace Task3FiguresLib.Figures
 
         public override void WriteByStreamWriter(StreamWriter writer)
         {
-            writer.WriteLine(string.Format("    <figure>{0}</figure>", "Square"));
-            writer.WriteLine(string.Format("        <a>{0}</a>", side));
-            writer.WriteLine(string.Format("        <b>{0}</a>", side));
-            writer.WriteLine(string.Format("        <c>{0}</a>", side));
-            writer.WriteLine(string.Format("        <d>{0}</a>", side));
+            writer.WriteLine(string.Format("        <figuretype>{0}</figuretype>", "Square"));
+            writer.WriteLine(string.Format("            <color>{0}</color>", Color.ToString()));
+            writer.WriteLine(string.Format("            <material>{0}</material>", Material.ToString()));
+            writer.WriteLine(string.Format("            <a>{0}</a>", side));
+            writer.WriteLine(string.Format("            <b>{0}</a>", side));
+            writer.WriteLine(string.Format("            <c>{0}</a>", side));
+            writer.WriteLine(string.Format("            <d>{0}</a>", side));
         }
 
         public override void ReadByStreamReader()
