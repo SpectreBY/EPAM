@@ -14,13 +14,16 @@ namespace Task4Lib
         private Socket clientSocket;
         private IPEndPoint ipEndPoint;
 
-        public delegate void ToLogMessage(string message, MessageFromEnum messageFrom);
+        public delegate void ToLogMessage(string message);
         public event ToLogMessage LogHandler;
+
+        List<string> list;
 
         public Client(string ip, int port)
         {
             ipEndPoint = new IPEndPoint(IPAddress.Parse(ip), port);
             clientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            list = new List<string>();
         }
 
         public void InitializeClient()
@@ -47,7 +50,8 @@ namespace Task4Lib
             byte[] data = new byte[256];
             int bytes = clientSocket.Receive(data);
             string message = Encoding.Unicode.GetString(data, 0, bytes);
-            LogHandler(message, MessageFromEnum.FromClient);
+            LogHandler.Invoke(message);
+            Thread.Sleep(10);
         }
     }
 }

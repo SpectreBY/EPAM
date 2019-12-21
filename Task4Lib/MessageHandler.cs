@@ -28,7 +28,7 @@ namespace Task4Lib
                     serverLog.Add(message);
                     break;
                 case MessageFromEnum.FromClient:
-                    clientLog.Add(message);
+                    clientLog.Add(TransliteParser.Parse(message));
                     break;
             }
         }

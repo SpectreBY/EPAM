@@ -12,11 +12,10 @@ namespace Task4Lib
     public class Server
     {
         private List<Socket> clientSockets;
-        private List<Thread> threads;
         private Socket serverSocket;
         private IPEndPoint ipEndPoint;
 
-        public delegate void ToLogMessage(string message, MessageFromEnum messageFrom);
+        public delegate void ToLogMessage(string message);
         public event ToLogMessage LogHandler;
 
         public Server(int port)
@@ -24,7 +23,6 @@ namespace Task4Lib
             ipEndPoint = new IPEndPoint(IPAddress.Any, port);
             serverSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             clientSockets = new List<Socket>();
-            threads = new List<Thread>();          
         }
 
         public void InitializeServer()
@@ -57,8 +55,10 @@ namespace Task4Lib
             {
                 byte[] data = new byte[256];
                 int bytes = clientSocket.Receive(data);
-                LogHandler(Encoding.Unicode.GetString(data, 0, bytes), MessageFromEnum.FromServer);
-                //clientSocket.Send(data);
+                string message = Encoding.Unicode.GetString(data, 0, bytes);
+                LogHandler.Invoke(message);
+                Thread.Sleep(10);
+                clientSocket.Send(data, bytes, SocketFlags.None);
             }
         }
     }
