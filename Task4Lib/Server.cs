@@ -9,15 +9,41 @@ using System.Threading.Tasks;
 
 namespace Task4Lib
 {
+    /// <summary>
+    /// A class that represents a server-side network application
+    /// </summary>
     public class Server
     {
+        /// <summary>
+        /// Collection of connected clients
+        /// </summary>
         private List<Socket> clientSockets;
+
+        /// <summary>
+        /// Server socket
+        /// </summary>
         private Socket serverSocket;
+
+        /// <summary>
+        /// Represents a network endpoint of server
+        /// </summary>
         private IPEndPoint ipEndPoint;
 
+        /// <summary>
+        /// The delegate that stores the reference to the anonymous method
+        /// </summary>
+        /// <param name="message"></param>
         public delegate void ToLogMessage(string message);
+
+        /// <summary>
+        /// An event that fires when receiving data from a client
+        /// </summary>
         public event ToLogMessage LogHandler;
 
+        /// <summary>
+        /// Contructor of class
+        /// </summary>
+        /// <param name="port"></param>
         public Server(int port)
         {
             ipEndPoint = new IPEndPoint(IPAddress.Any, port);
@@ -25,6 +51,9 @@ namespace Task4Lib
             clientSockets = new List<Socket>();
         }
 
+        /// <summary>
+        /// Start listening of port for accept connections
+        /// </summary>
         public void InitializeServer()
         {
             try
@@ -35,10 +64,14 @@ namespace Task4Lib
             }
             catch(SocketException)
             {
-
+                return;
             }
         }
 
+        /// <summary>
+        /// Asynchronous accept connections from clients
+        /// </summary>
+        /// <param name="ar"></param>
         private void AcceptCallBack(IAsyncResult ar)
         {
             Socket clientSocket = serverSocket.EndAccept(ar);
@@ -48,6 +81,10 @@ namespace Task4Lib
             serverSocket.BeginAccept(AcceptCallBack, null);
         }
 
+        /// <summary>
+        /// Receiving and sending data received from the client is performed in a separate threads
+        /// </summary>
+        /// <param name="socket"></param>
         private void ClientHandler(object socket)
         {
             Socket clientSocket = (Socket)socket;

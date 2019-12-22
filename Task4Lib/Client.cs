@@ -9,23 +9,46 @@ using System.Threading.Tasks;
 
 namespace Task4Lib
 {
+    /// <summary>
+    /// A class that represents a client-side network application
+    /// </summary>
     public class Client
     {
+        /// <summary>
+        /// Client socket
+        /// </summary>
         private Socket clientSocket;
+
+        /// <summary>
+        /// Represents a network endpoint of client
+        /// </summary>
         private IPEndPoint ipEndPoint;
 
+        /// <summary>
+        /// The delegate that stores the reference to the anonymous method
+        /// </summary>
+        /// <param name="message"></param>
         public delegate void ToLogMessage(string message);
+
+        /// <summary>
+        /// An event that fires when receiving data from a client
+        /// </summary>
         public event ToLogMessage LogHandler;
 
-        List<string> list;
-
+        /// <summary>
+        /// Contructor of class
+        /// </summary>
+        /// <param name="ip"></param>
+        /// <param name="port"></param>
         public Client(string ip, int port)
         {
             ipEndPoint = new IPEndPoint(IPAddress.Parse(ip), port);
             clientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-            list = new List<string>();
         }
 
+        /// <summary>
+        /// Start connection to remote server
+        /// </summary>
         public void InitializeClient()
         {
             try
@@ -34,10 +57,14 @@ namespace Task4Lib
             }
             catch (SocketException)
             {
-
+                return;
             }
         }
 
+        /// <summary>
+        /// Send data to remote server
+        /// </summary>
+        /// <param name="message"></param>
         public void SendMessage(string message)
         {
             byte[] data = Encoding.Unicode.GetBytes(message);
@@ -45,6 +72,9 @@ namespace Task4Lib
             Thread.Sleep(10);
         }
 
+        /// <summary>
+        /// Recieve data from remote server
+        /// </summary>
         public void RecieveMessage()
         {
             byte[] data = new byte[256];

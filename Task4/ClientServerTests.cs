@@ -7,18 +7,45 @@ using Task4Lib;
 
 namespace Task4
 {
+    /// <summary>
+    /// Test class for testing server-side and client-side of application
+    /// </summary>
     [TestClass]
     public class ClientServerTests
     {
+        /// <summary>
+        /// Object of server class
+        /// </summary>
         private Server server;
+
+        /// <summary>
+        /// Object of client class
+        /// </summary>
         private Client client1;
+
+        /// <summary>
+        /// Object of client class
+        /// </summary>
         private Client client2;
+
+        /// <summary>
+        /// Object of client class
+        /// </summary>
         private Client client3;
+
+        /// <summary>
+        /// Object of client class
+        /// </summary>
         private Client client4;
+
+        /// <summary>
+        /// Object of client class
+        /// </summary>
         private Client client5;
 
-        private MessageHandler messageHandler;
-
+        /// <summary>
+        /// Cases for comparing server results
+        /// </summary>
         private List<string> serverMessagesCase = new List<string>
         {
             "Клиент 1",
@@ -27,6 +54,10 @@ namespace Task4
             "Клиент 4",
             "Клиент 5"
         };
+
+        /// <summary>
+        /// Cases for comparing clients results
+        /// </summary>
         private List<string> clientMessagesCase = new List<string>
         {
             "banan",
@@ -36,9 +67,19 @@ namespace Task4
             "soobshchyeniye"
         };
 
+        /// <summary>
+        /// Collection of results from server
+        /// </summary>
         private List<string> serverMessagesResult;
+
+        /// <summary>
+        /// Collection of results from client
+        /// </summary>
         private List<string> clientMessagesResult;
 
+        /// <summary>
+        /// Test method for testing server log
+        /// </summary>
         [TestMethod]
         public void ServerLogMessagesTest()
         {
@@ -81,6 +122,9 @@ namespace Task4
             Assert.AreEqual(isSame, true);
         }
 
+        /// <summary>
+        /// Test method for testing translitations of russian words on client-side
+        /// </summary>
         [TestMethod]
         public void ClientGetMessageTest()
         {
@@ -92,7 +136,6 @@ namespace Task4
             client4 = new Client("127.0.0.1", 4455);
             client5 = new Client("127.0.0.1", 4455);
             
-            messageHandler = new MessageHandler();
 
             server.LogHandler += (message) => { };
 

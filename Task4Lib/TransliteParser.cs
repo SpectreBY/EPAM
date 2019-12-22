@@ -6,8 +6,14 @@ using System.Threading.Tasks;
 
 namespace Task4Lib
 {
+    /// <summary>
+    /// A class that represents the translation of russian words into transliteration
+    /// </summary>
     public class TransliteParser
     {
+        /// <summary>
+        /// A dictionary that stores latin letters received in Russian as a key
+        /// </summary>
         private static Dictionary<char, string> dictionary = new Dictionary<char, string>
         {
             { 'а', "a" },
@@ -45,6 +51,11 @@ namespace Task4Lib
             { 'я', "ya" }
         };
 
+        /// <summary>
+        /// Method for translating a russian word into transliteration
+        /// </summary>
+        /// <param name="message"></param>
+        /// <returns></returns>
         public static string Parse(string message)
         {
             StringBuilder stringBuilder = new StringBuilder();
