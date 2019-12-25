@@ -8,15 +8,28 @@ namespace Task5Lib
 {
     public class BinaryTree<T>
     {
-        private List<T> nodes;
+        private List<Node<T>> nodes;
         public BinaryTree()
         {
-            nodes = new List<T>();
+            nodes = new List<Node<T>>();
         }
 
-        public void AddToTree(T node)
+        public void AddToTree(T testForm)
         {
-            nodes.Add(node);
+            Node<T> node;
+            if (nodes.Count == 0)
+            {
+                node = new Node<T>(testForm, null, null);
+            }
+            else
+            {
+                foreach(var item in nodes)
+                {
+                    TestForm test = item.TestForm;
+
+
+                }
+            }
         }
     }
 }
