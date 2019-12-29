@@ -6,6 +6,9 @@ using Task5Lib;
 
 namespace Task5
 {
+    /// <summary>
+    /// Thats class represents tests for binary trees
+    /// </summary>
     [TestClass]
     public class BinaryTreeTests
     {
@@ -23,6 +26,9 @@ namespace Task5
         private MathTestForm test8 = new MathTestForm("Student 8", "Math Test", DateTime.Now, 35);
         private MathTestForm test9 = new MathTestForm("Student 9", "Math Test", DateTime.Now, 54);
 
+        /// <summary>
+        /// Test for fill binary tree
+        /// </summary>
         [TestMethod]
         public void AddToBinaryTreeTest()
         {
@@ -30,6 +36,9 @@ namespace Task5
             Assert.IsTrue(BinaryTreeEquals());
         }
 
+        /// <summary>
+        /// Test for remove node from binary tree
+        /// </summary>
         [TestMethod]
         public void RemoveFromBinaryTreeTest()
         {
@@ -47,6 +56,9 @@ namespace Task5
             Assert.IsTrue(removed);
         }
 
+        /// <summary>
+        /// Test for balancing binary tree
+        /// </summary>
         [TestMethod]
         public void BalanceBinaryTreeTest()
         {
@@ -55,15 +67,30 @@ namespace Task5
             Assert.IsTrue(BalancedBinaryTreeEquals());
         }
 
+        /// <summary>
+        /// Test for serialization binary tree to xml file
+        /// </summary>
         [TestMethod]
-        public void SerializationAndDeserializationTreeTest()
+        public void SerializationTreeTest()
+        {
+            AddNodes();
+            Assert.IsTrue(binaryTree.Serialization());
+        }
+
+        /// <summary>
+        /// Test for deserialization xml file
+        /// </summary>
+        [TestMethod]
+        public void DeserializationTreeTest()
         {
             AddNodes();
             binaryTree.Serialization();
-            binaryTree.Deserialization();
-            Assert.IsTrue(BinaryTreeEquals());
+            Assert.IsTrue(binaryTree.Deserialization());
         }
 
+        /// <summary>
+        /// Helper method for fill binary tree
+        /// </summary>
         private void AddNodes()
         {
             binaryTree.AddToTree(test1);
@@ -87,6 +114,10 @@ namespace Task5
             orderedNodeValues = nodeValues.OrderBy(o => o).ToList();
         }
 
+        /// <summary>
+        /// Helper method for comparison binary trees
+        /// </summary>
+        /// <returns></returns>
         private bool BinaryTreeEquals()
         {
             Node<object> root = binaryTree.GetNodesRoot;
@@ -111,6 +142,10 @@ namespace Task5
             return true;
         }
 
+        /// <summary>
+        /// Helper method for comparison balanced binary trees
+        /// </summary>
+        /// <returns></returns>
         private bool BalancedBinaryTreeEquals()
         {
             Node<object> root = binaryTree.GetBalancedNodesRoot;

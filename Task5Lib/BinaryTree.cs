@@ -8,23 +8,49 @@ using System.Xml.Serialization;
 
 namespace Task5Lib
 {
+    /// <summary>
+    /// Thats class represents binary tree
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public class BinaryTree<T>
     {
         private List<Node<T>> nodes;
         private List<Node<T>> balancedNodes;
         private List<T> testForms;
 
-        public List<Node<T>> Nodes { get => nodes; }
-        public List<Node<T>> BalancedNodes { get => balancedNodes; }
-        public Node<T> GetNodesRoot { get => nodes.First();}
-        public Node<T> GetBalancedNodesRoot { get => balancedNodes[balancedNodes.Count / 2]; }
-
+        /// <summary>
+        /// Constructor without parameters
+        /// </summary>
         public BinaryTree()
         {
             nodes = new List<Node<T>>();
             testForms = new List<T>();
         }
 
+        /// <summary>
+        /// Property for accessing nodes of binary tree
+        /// </summary>
+        public List<Node<T>> Nodes { get => nodes; }
+
+        /// <summary>
+        /// Property for accessing nodes of balanced binary tree
+        /// </summary>
+        public List<Node<T>> BalancedNodes { get => balancedNodes; }
+
+        /// <summary>
+        /// Property for accessing main root node of binary tree
+        /// </summary>
+        public Node<T> GetNodesRoot { get => nodes.First();}
+
+        /// <summary>
+        /// Property for accessing main root node of balanced binary tree
+        /// </summary>
+        public Node<T> GetBalancedNodesRoot { get => balancedNodes[balancedNodes.Count / 2]; }
+
+        /// <summary>
+        /// Method for add node to binary tree
+        /// </summary>
+        /// <param name="testForm"></param>
         public void AddToTree(T testForm)
         {
             Node<T> node;
@@ -83,6 +109,10 @@ namespace Task5Lib
             }
         }
 
+        /// <summary>
+        /// Method for remove node from binary tree
+        /// </summary>
+        /// <param name="index"></param>
         public void RemoveFromTree(int index)
         {
             if (index > nodes.Count - 1 || index < 0)
@@ -152,6 +182,9 @@ namespace Task5Lib
             nodes.RemoveAt(index);
         }
 
+        /// <summary>
+        /// Method for balancing a binary tree
+        /// </summary>
         public void BalanceTree()
         {
             balancedNodes = nodes.OrderBy(o => o.Value).ToList();
@@ -164,6 +197,13 @@ namespace Task5Lib
 
             BalanceTree(0, nodes.Count - 1);
         }
+
+        /// <summary>
+        /// Method for performing binary tree balancing calculations
+        /// </summary>
+        /// <param name="start"></param>
+        /// <param name="end"></param>
+        /// <returns></returns>
         private Node<T> BalanceTree(int start, int end)
         {
             if (start > end)
@@ -177,22 +217,30 @@ namespace Task5Lib
             return balancedNodes[mid];
         }
 
-        public void Serialization()
+        /// <summary>
+        /// Method for write nodes of binary tree to xml file
+        /// </summary>
+        public bool Serialization()
         {
             XmlSerializer formatter = new XmlSerializer(typeof(List<T>), new Type[] { typeof(MathTestForm), typeof(PhysicsTestForm)});
             using (FileStream fs = new FileStream("tests.xml", FileMode.Create, FileAccess.Write, FileShare.None))
             {
                 formatter.Serialize(fs, testForms);
+                return true;
             }
         }
 
-        public void Deserialization()
+        /// <summary>
+        /// Method for read nodes of binary tree from xml file
+        /// </summary>
+        public bool Deserialization()
         {
             XmlSerializer formatter = new XmlSerializer(typeof(List<T>), new Type[] { typeof(MathTestForm), typeof(PhysicsTestForm) });
             using (FileStream fs = new FileStream("tests.xml", FileMode.Open, FileAccess.Read, FileShare.None))
             {
                 testForms.Clear();
                 testForms = (List<T>)formatter.Deserialize(fs);
+                return true;
             }
         }
     }

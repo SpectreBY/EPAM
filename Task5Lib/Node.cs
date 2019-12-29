@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 
 namespace Task5Lib
 {
+    /// <summary>
+    /// Thats class represents node of binary tree
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public class Node<T>
     {
         private T testForm;
@@ -13,6 +17,11 @@ namespace Task5Lib
         private Node<T> left;
         private Node<T> right;
 
+        /// <summary>
+        /// Contructor with few parameters
+        /// </summary>
+        /// <param name="testForm"></param>
+        /// <param name="root"></param>
         public Node(T testForm, Node<T> root)
         {
             this.testForm = testForm;
@@ -21,11 +30,29 @@ namespace Task5Lib
             this.root = root;
         }
 
+        /// <summary>
+        /// Property for storing linked parent node
+        /// </summary>
         public Node<T> Root { get => root; set => root = value; }
+
+        /// <summary>
+        /// Property for storing linked left node
+        /// </summary>
         public Node<T> Left { get => left; set => left = value; }
+
+        /// <summary>
+        /// Property for storing linked right node
+        /// </summary>
         public Node<T> Right { get => right; set => right = value; }
+
+        /// <summary>
+        /// Property for storing object of tests (physics or math)
+        /// </summary>
         public T TestForm { get => testForm; set => testForm = value; }
 
+        /// <summary>
+        /// Property for storing test scores from test form object
+        /// </summary>
         public int Value
         {
             get

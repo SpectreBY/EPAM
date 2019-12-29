@@ -6,14 +6,20 @@ using System.Threading.Tasks;
 
 namespace Task5Lib
 {
+    /// <summary>
+    /// Thats class represents math subject test form
+    /// </summary>
     [Serializable]
     public class MathTestForm
     {
+        /// <summary>
+        /// Contructor without parameters
+        /// </summary>
         public MathTestForm()
         { }
 
         /// <summary>
-        /// 
+        /// Constructor whith few parameters
         /// </summary>
         /// <param name="studentName"></param>
         /// <param name="testName"></param>
@@ -27,9 +33,24 @@ namespace Task5Lib
             TestScore = testScore;
         }
 
+        /// <summary>
+        /// Property for storing student name value
+        /// </summary>
         public string StudentName { get; set; }
+
+        /// <summary>
+        /// Property for storing test name value
+        /// </summary>
         public string TestName { get; set; }
+
+        /// <summary>
+        /// Property for storing test date value
+        /// </summary>
         public DateTime TestDate { get; set; }
+
+        /// <summary>
+        /// Property for storing result tests score value
+        /// </summary>
         public int TestScore { get; set; }
     }
 }
