@@ -42,7 +42,7 @@ namespace Task6ORM
                 using (var query = new SqlCommand())
                 {
                     string tableName = string.Format("{0}s", nameof(Student));
-                    string queryString = string.Format(SqlStrings.Select, tableName);
+                    string queryString = string.Format(SqlQueries.Select, tableName);
 
                     query.Connection = connection;
                     query.CommandText = queryString;
@@ -84,36 +84,9 @@ namespace Task6ORM
         {
             Student student = null;
 
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                using (var query = new SqlCommand())
-                {
-                    StringBuilder builder = new StringBuilder();
-                    string tableName = string.Format("{0}s", nameof(Student));
-                    string conditions = string.Format("Id = {0}", id);
-                    string queryString = string.Format(SqlStrings.SelectById, tableName, conditions);
 
-                    query.Connection = connection; 
-                    query.CommandText = queryString;
 
-                    query.Connection.Open();
-                    using (SqlDataReader reader = query.ExecuteReader())
-                    {
-                        if (reader.HasRows && reader.Read())
-                        {
-                            student = new Student()
-                            {
-                                Id = (int)reader["Id"],
-                                FullName = (string)reader["FullName"],
-                                Gender = (int)reader["Gender"] == 0 ? Genders.Male : Genders.Female,
-                                DateOfBirth = ((DateTime)reader["DateOfBirth"]).Date,
-                                Group = new Group { Id = (int)reader["GroupId"] }
-                            };
-                        }
-                    }
-                    query.Connection.Close();
-                }
-            }
+
             Group group = dbContext.GroupsRepository().GetById(student.Group.Id);
             student.Group = group;
             return student;

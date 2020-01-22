@@ -55,7 +55,7 @@ namespace Task6ORM
                     StringBuilder builder = new StringBuilder();
                     string tableName = string.Format("{0}s", nameof(Group));
                     string conditions = string.Format("Id = {0}", id);
-                    string queryString = string.Format(SqlStrings.SelectById, tableName, conditions);
+                    string queryString = string.Format(SqlQueries.SelectById, tableName, conditions);
 
                     query.Connection = connection;
                     query.CommandText = queryString;
