@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace Task6ORM.Models
 {
-    public abstract class BaseModel
+    public class Session : BaseModel
     {
-        public int Id { get; set; }
+        public string EducationPeriod { get; set; }
+        public int Semestr { get; set; }
     }
 }

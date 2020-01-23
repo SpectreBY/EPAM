@@ -9,6 +9,5 @@ namespace Task6ORM.Models
     public class Group : BaseModel
     {
         public string Name { get; set; }
-        public int Course { get; set; }
     }
 }

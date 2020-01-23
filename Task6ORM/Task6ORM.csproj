@@ -43,13 +43,23 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DbContext.cs" />
-    <Compile Include="Enums\Genders.cs" />
+    <Compile Include="Repositories\ResultsOfSessionRepository.cs" />
+    <Compile Include="Repositories\SessionsRepository.cs" />
+    <Compile Include="Repositories\ExamsRepository.cs" />
+    <Compile Include="Repositories\SubjectsOfGroupsRepository.cs" />
+    <Compile Include="Repositories\SubjectsRepository.cs" />
+    <Compile Include="Repositories\GroupsRepository.cs" />
     <Compile Include="Models\BaseModel.cs" />
+    <Compile Include="Models\ResultsOfExam.cs" />
+    <Compile Include="Models\SubjectsOfGroup.cs" />
+    <Compile Include="Models\Session.cs" />
+    <Compile Include="Models\Exam.cs" />
+    <Compile Include="Models\Subject.cs" />
     <Compile Include="Models\Group.cs" />
     <Compile Include="Models\Student.cs" />
-    <Compile Include="GroupsRepository.cs" />
-    <Compile Include="StudentsRepository.cs" />
-    <Compile Include="Interfaces\IRepository.cs" />
+    <Compile Include="Repositories\BaseRepository.cs" />
+    <Compile Include="Repositories\StudentsRepository.cs" />
+    <Compile Include="Interfaces\IService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -58,5 +68,6 @@
       <Name>Task6SQL</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

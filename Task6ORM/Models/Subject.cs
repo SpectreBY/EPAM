@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace Task6ORM.Models
 {
-    public abstract class BaseModel
+    public class Subject : BaseModel
     {
-        public int Id { get; set; }
+        public string Name { get; set; }
     }
 }

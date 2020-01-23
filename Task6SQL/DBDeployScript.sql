@@ -1,49 +1,59 @@
 ﻿CREATE TABLE [dbo].[Groups]
 (
-	[Id] INT NOT NULL PRIMARY KEY, 
-    [Name] NVARCHAR(50) NULL, 
-    [Course] INT NULL
+	[Id] INT NOT NULL PRIMARY KEY([Id] ASC), 
+    [Name] NVARCHAR(50) NULL
 );
 
 CREATE TABLE [dbo].[Subjects]
 (
-	[Id] INT NOT NULL PRIMARY KEY, 
+	[Id] INT NOT NULL PRIMARY KEY([Id] ASC), 
     [Name] NVARCHAR(100) NULL
 );
 
-CREATE TABLE [dbo].[Students] (
-    [Id]          INT            NOT NULL,
-    [FullName]    NVARCHAR (150) NULL,
-    [Gender]      INT            NULL,
-    [DateOfBirth] DATETIME       NULL,
-    [GroupId]     INT            NULL,
-    PRIMARY KEY CLUSTERED ([Id] ASC),
-    CONSTRAINT fk_groups FOREIGN KEY([GroupId]) REFERENCES [dbo].[Groups]([Id])
+CREATE TABLE [dbo].[Sessions]
+(
+	[Id] INT NOT NULL PRIMARY KEY([Id] ASC), 
+    [EducationPeriod] NVARCHAR(50) NULL,
+    [Semestr] INT NULL
 );
 
-CREATE TABLE [dbo].[Exams] (
-    [Id]        INT      NOT NULL,
-    [SubjectId] INT      NULL,
-    [GroupId]   INT      NULL,
-    [ExamDate]  DATETIME NULL,
-    PRIMARY KEY CLUSTERED ([Id] ASC),
-	CONSTRAINT fk_subjects FOREIGN KEY([SubjectId]) REFERENCES [dbo].[Subjects]([Id]),
-	CONSTRAINT fk_groups FOREIGN KEY([GroupId]) REFERENCES [dbo].[Groups]([Id])
+
+CREATE TABLE [dbo].[SubjectsOfGroups]
+(
+	[Id] INT NOT NULL PRIMARY KEY([Id] ASC), 
+	[GroupId] INT NULL, 
+	[SubjectId] INT NULL,
+	CONSTRAINT fk_subjectsOfGroups_1 FOREIGN KEY([GroupId]) REFERENCES [dbo].[Groups]([Id]),
+	CONSTRAINT fk_subjectsOfGroups_2 FOREIGN KEY([SubjectId]) REFERENCES [dbo].[Subjects]([Id])
 );
 
-CREATE TABLE [dbo].[ExamsResults] (
-    [Id]        INT NOT NULL,
+CREATE TABLE [dbo].[Exams]
+(
+	[Id] INT NOT NULL PRIMARY KEY([Id] ASC),
+	[ExamType] NVARCHAR(50) NULL, 
+	[SessionId] INT NULL, 
+    [ExamDate] DATETIME NULL,
+	[SubjectsOfGroupId] INT NULL,
+	CONSTRAINT fk_exams_1 FOREIGN KEY([SessionId]) REFERENCES [dbo].[Sessions]([Id]),
+	CONSTRAINT fk_exams_2 FOREIGN KEY([SubjectsOfGroupId]) REFERENCES [dbo].[SubjectsOfGroups]([Id])
+);
+
+CREATE TABLE [dbo].[Students] 
+(
+    [Id] INT NOT NULL PRIMARY KEY([Id] ASC),
+    [FullName] NVARCHAR (150) NULL,
+    [Gender] INT NULL,
+    [DateOfBirth] DATETIME NULL,
+    [GroupId] INT NULL,
+    CONSTRAINT fk_students FOREIGN KEY([GroupId]) REFERENCES [dbo].[Groups]([Id])
+);
+
+CREATE TABLE [dbo].[ResultsOfExams] 
+(
+    [Id] INT NOT NULL PRIMARY KEY([Id] ASC),
     [StudentId] INT NULL,
     [ExamId] INT NULL,
-    [Mark]      INT NULL,
-    PRIMARY KEY CLUSTERED ([Id] ASC),
-	CONSTRAINT fk_students FOREIGN KEY([StudentId]) REFERENCES [dbo].[Students]([Id]),
-	CONSTRAINT fk_exams FOREIGN KEY([ExamId]) REFERENCES [dbo].[Exams]([Id])
+    [Result] NVARCHAR (50) NULL,
+	CONSTRAINT fk_exams_1 FOREIGN KEY([StudentId]) REFERENCES [dbo].[Students]([Id]),
+	CONSTRAINT fk_exams_2 FOREIGN KEY([ExamId]) REFERENCES [dbo].[Exams]([Id])
 );
-
-
-
-
-
-
-

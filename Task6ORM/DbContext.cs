@@ -12,12 +12,27 @@ namespace Task6ORM
         private static DbContext instance;
         private string connectionString;
 
+        private StudentsRepository studentsRepository;
+        private GroupsRepository groupsRepository;
+        private SessionsRepository sessionsRepository;
+        private SubjectsOfGroupsRepository subjectsOfGroupsRepository;
+        private SubjectsRepository subjectsRepository;
+        private ExamsRepository examsRepository;
+        private ResultsOfSessionRepository resultsOfSessionRepository;
+
         private DbContext(string connectionString)
         {
             this.connectionString = connectionString;
+            studentsRepository = new StudentsRepository(connectionString, this);
+            groupsRepository = new GroupsRepository(connectionString, this);
+            sessionsRepository = new SessionsRepository(connectionString, this);
+            subjectsOfGroupsRepository = new SubjectsOfGroupsRepository(connectionString, this);
+            subjectsRepository = new SubjectsRepository(connectionString, this);
+            examsRepository = new ExamsRepository(connectionString, this);
+            resultsOfSessionRepository = new ResultsOfSessionRepository(connectionString, this);
         }
 
-        public static DbContext getInstance(string connectionString)
+        public static DbContext GetInstance(string connectionString)
         {
             if (instance == null)
             {
@@ -26,15 +41,42 @@ namespace Task6ORM
             return instance;
         }
 
-        public StudentsRepository StudentsRepository()
+        #region Properties for access to repositiries
+        public StudentsRepository StudentsRepository
         {
-            return new StudentsRepository(connectionString, this);
+            get { return studentsRepository; }
         }
 
-        public GroupsRepository GroupsRepository()
+        public GroupsRepository GroupsRepository
         {
-            return new GroupsRepository(connectionString, this);
+            get { return groupsRepository; }
         }
+
+        public SubjectsRepository SubjectsRepository
+        {
+            get { return subjectsRepository; }
+        }
+
+        public SubjectsOfGroupsRepository SubjectsOfGroupsRepository
+        {
+            get { return subjectsOfGroupsRepository; }
+        }
+
+        public SessionsRepository SessionsRepository
+        {
+            get { return sessionsRepository; }
+        }
+
+        public ExamsRepository ExamsRepository
+        {
+            get { return examsRepository; }
+        }
+
+        public ResultsOfSessionRepository ResultsOfSessionRepository
+        {
+            get { return resultsOfSessionRepository; }
+        }
+        #endregion
 
         public void DeployDatabase(string script)
         {
