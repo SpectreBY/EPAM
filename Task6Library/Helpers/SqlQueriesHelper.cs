@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Task6SQL
+namespace Task6Library
 {
-    public static class SqlQueries
+    public static class SqlQueriesHelper
     {
         public const string Select     = "SELECT {0} FROM {1};";
         public const string SelectById = "SELECT {0} FROM {1} WHERE {2};"; 
@@ -21,6 +17,15 @@ namespace Task6SQL
             {
                 string deploySql = sr.ReadToEnd();
                 return deploySql;
+            }
+        }
+
+        public static string GetFillDataScript()
+        {
+            using (StreamReader sr = new StreamReader("DBFillDataScript.sql"))
+            {
+                string fillSql = sr.ReadToEnd();
+                return fillSql;
             }
         }
 

@@ -29,7 +29,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Task6", "Task6\Task6.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Task6ORM", "Task6ORM\Task6ORM.csproj", "{3E4332EA-CF6C-46EE-ADCD-2C78C8010CA6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Task6SQL", "Task6SQL\Task6SQL.csproj", "{E1B2CC20-A88F-4761-BE0C-12D37088951A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Task6Library", "Task6Library\Task6Library.csproj", "{FDF299E3-5E46-4E74-9AB8-E36B52E1E460}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -89,10 +89,10 @@ Global
 		{3E4332EA-CF6C-46EE-ADCD-2C78C8010CA6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3E4332EA-CF6C-46EE-ADCD-2C78C8010CA6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3E4332EA-CF6C-46EE-ADCD-2C78C8010CA6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E1B2CC20-A88F-4761-BE0C-12D37088951A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E1B2CC20-A88F-4761-BE0C-12D37088951A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E1B2CC20-A88F-4761-BE0C-12D37088951A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E1B2CC20-A88F-4761-BE0C-12D37088951A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FDF299E3-5E46-4E74-9AB8-E36B52E1E460}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FDF299E3-5E46-4E74-9AB8-E36B52E1E460}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FDF299E3-5E46-4E74-9AB8-E36B52E1E460}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FDF299E3-5E46-4E74-9AB8-E36B52E1E460}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

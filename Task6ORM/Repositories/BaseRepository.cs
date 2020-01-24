@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using Task6ORM.Interfaces;
 using Task6ORM.Models;
-using Task6SQL;
+using Task6Library;
 
 namespace Task6ORM
 {
@@ -78,7 +76,7 @@ namespace Task6ORM
             columnsLine = columnsLine.Insert(0, string.Format("{0}, ", propertyId.Name));
             columnValuesLine = columnValuesLine.Insert(0, string.Format("'{0}', ", newId));
 
-            string querySql = string.Format(SqlQueries.Insert, tableName, columnsLine, columnValuesLine);
+            string querySql = string.Format(SqlQueriesHelper.Insert, tableName, columnsLine, columnValuesLine);
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
@@ -119,7 +117,7 @@ namespace Task6ORM
 
             string columnsLine = columns.ToString().Substring(0, columns.ToString().Length - 2);
 
-            string querySql = string.Format(SqlQueries.Update, tableName, columnsLine, propertyId.Name, propertyId.GetValue(model));
+            string querySql = string.Format(SqlQueriesHelper.Update, tableName, columnsLine, propertyId.Name, propertyId.GetValue(model));
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
@@ -137,7 +135,7 @@ namespace Task6ORM
         public int GetUniqueKey(string tableName)
         {
             List<int> keys = new List<int>();
-            string querySqlSelect = string.Format(SqlQueries.Select, tableName.Insert(tableName.Length, ".Id"), tableName);
+            string querySqlSelect = string.Format(SqlQueriesHelper.Select, tableName.Insert(tableName.Length, ".Id"), tableName);
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {

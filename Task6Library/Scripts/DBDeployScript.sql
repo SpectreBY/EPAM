@@ -54,6 +54,6 @@ CREATE TABLE [dbo].[ResultsOfExams]
     [StudentId] INT NULL,
     [ExamId] INT NULL,
     [Result] NVARCHAR (50) NULL,
-	CONSTRAINT fk_exams_1 FOREIGN KEY([StudentId]) REFERENCES [dbo].[Students]([Id]),
-	CONSTRAINT fk_exams_2 FOREIGN KEY([ExamId]) REFERENCES [dbo].[Exams]([Id])
+	CONSTRAINT fk_results_exams_1 FOREIGN KEY([StudentId]) REFERENCES [dbo].[Students]([Id]),
+	CONSTRAINT fk_results_exams_2 FOREIGN KEY([ExamId]) REFERENCES [dbo].[Exams]([Id])
 );

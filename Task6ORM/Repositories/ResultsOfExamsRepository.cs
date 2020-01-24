@@ -4,13 +4,13 @@ using System.Data.SqlClient;
 using System.Linq;
 using Task6ORM.Interfaces;
 using Task6ORM.Models;
-using Task6SQL;
+using Task6Library;
 
 namespace Task6ORM
 {
-    public class ResultsOfSessionRepository : BaseRepository
+    public class ResultsOfExamsRepository : BaseRepository
     {
-        public ResultsOfSessionRepository(string connectionString, DbContext dbContext) : base(connectionString, dbContext)
+        public ResultsOfExamsRepository(string connectionString, DbContext dbContext) : base(connectionString, dbContext)
         {}
 
         public override void Delete(int id)
@@ -20,7 +20,7 @@ namespace Task6ORM
                 using (var query = new SqlCommand())
                 {
                     query.Connection = connection;
-                    query.CommandText = SqlQueries.FormDeleteQuery(typeof(ResultsOfExam), id);
+                    query.CommandText = SqlQueriesHelper.FormDeleteQuery(typeof(ResultsOfExam), id);
                     query.Connection.Open();
                     query.ExecuteNonQuery();
                     query.Connection.Close();
@@ -36,7 +36,7 @@ namespace Task6ORM
                 using (var query = new SqlCommand())
                 {
                     query.Connection = connection;
-                    query.CommandText = SqlQueries.FormSelectQuery(typeof(ResultsOfExam));
+                    query.CommandText = SqlQueriesHelper.FormSelectQuery(typeof(ResultsOfExam));
                     query.Connection.Open();
                     using (SqlDataReader reader = query.ExecuteReader())
                     {
@@ -49,7 +49,7 @@ namespace Task6ORM
                                     Id = (int)reader["Id"],
                                     Student = new Student { Id = (int)reader["StudentId"] },
                                     Exam = new Exam { Id = (int)reader["ExamId"] },
-                                    Result = (string)reader["Result"]
+                                    Result = (int)reader["Result"]
                                 });
                             }
                         }
@@ -79,7 +79,7 @@ namespace Task6ORM
                 using (var query = new SqlCommand())
                 {
                     query.Connection = connection;
-                    query.CommandText = SqlQueries.FormSelectByIdQuery(typeof(ResultsOfExam), id);
+                    query.CommandText = SqlQueriesHelper.FormSelectByIdQuery(typeof(ResultsOfExam), id);
 
                     query.Connection.Open();
                     using (SqlDataReader reader = query.ExecuteReader())
@@ -91,7 +91,7 @@ namespace Task6ORM
                                 Id = (int)reader["Id"],
                                 Student = new Student { Id = (int)reader["StudentId"] },
                                 Exam = new Exam { Id = (int)reader["ExamId"] },
-                                Result = (string)reader["Result"]
+                                Result = (int)reader["Result"]
                             };
                         }
                     }

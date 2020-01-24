@@ -10,6 +10,6 @@ namespace Task6ORM.Models
     {
         public Exam Exam { get; set; }
         public Student Student { get; set; }
-        public string Result { get; set; }
+        public int Result { get; set; }
     }
 }

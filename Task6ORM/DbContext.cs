@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Data.SqlClient;
+using Task6Library;
 
 namespace Task6ORM
 {
@@ -18,7 +14,7 @@ namespace Task6ORM
         private SubjectsOfGroupsRepository subjectsOfGroupsRepository;
         private SubjectsRepository subjectsRepository;
         private ExamsRepository examsRepository;
-        private ResultsOfSessionRepository resultsOfSessionRepository;
+        private ResultsOfExamsRepository resultsOfExamsRepository;
 
         private DbContext(string connectionString)
         {
@@ -29,7 +25,7 @@ namespace Task6ORM
             subjectsOfGroupsRepository = new SubjectsOfGroupsRepository(connectionString, this);
             subjectsRepository = new SubjectsRepository(connectionString, this);
             examsRepository = new ExamsRepository(connectionString, this);
-            resultsOfSessionRepository = new ResultsOfSessionRepository(connectionString, this);
+            resultsOfExamsRepository = new ResultsOfExamsRepository(connectionString, this);
         }
 
         public static DbContext GetInstance(string connectionString)
@@ -72,23 +68,38 @@ namespace Task6ORM
             get { return examsRepository; }
         }
 
-        public ResultsOfSessionRepository ResultsOfSessionRepository
+        public ResultsOfExamsRepository ResultsOfExamsRepository
         {
-            get { return resultsOfSessionRepository; }
+            get { return resultsOfExamsRepository; }
         }
         #endregion
 
-        public void DeployDatabase(string script)
+        public bool DeployDatabase()
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 using (var query = new SqlCommand())
                 {
-                    query.Connection = connection;
-                    query.CommandText = script;
-                    query.Connection.Open();
-                    query.ExecuteNonQuery();
-                    query.Connection.Close();
+                    string deploySql = SqlQueriesHelper.GetDeployScript();
+                    string fillSql = SqlQueriesHelper.GetFillDataScript();
+                    try
+                    {
+                        query.Connection = connection;
+                        query.CommandText = deploySql;
+                        query.Connection.Open();
+                        query.ExecuteNonQuery();
+                        query.Connection.Close();
+
+                        query.CommandText = fillSql;
+                        query.Connection.Open();
+                        query.ExecuteNonQuery();
+                        query.Connection.Close();
+                        return true;
+                    }
+                    catch(SqlException)
+                    {
+                        return false;
+                    }
                 }
             }
         }

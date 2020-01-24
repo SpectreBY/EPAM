@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{3E4332EA-CF6C-46EE-ADCD-2C78C8010CA6}</ProjectGuid>
+    <ProjectGuid>{FDF299E3-5E46-4E74-9AB8-E36B52E1E460}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Task6ORM</RootNamespace>
-    <AssemblyName>Task6ORM</AssemblyName>
+    <RootNamespace>Task6Library</RootNamespace>
+    <AssemblyName>Task6Library</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -21,7 +21,6 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Debug\Task6ORM.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -42,23 +41,53 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DbContext.cs" />
-    <Compile Include="Repositories\ResultsOfExamsRepository.cs" />
-    <Compile Include="Repositories\SessionsRepository.cs" />
-    <Compile Include="Repositories\ExamsRepository.cs" />
-    <Compile Include="Repositories\SubjectsOfGroupsRepository.cs" />
-    <Compile Include="Repositories\SubjectsRepository.cs" />
-    <Compile Include="Repositories\GroupsRepository.cs" />
-    <Compile Include="Repositories\BaseRepository.cs" />
-    <Compile Include="Repositories\StudentsRepository.cs" />
-    <Compile Include="Interfaces\IService.cs" />
+    <Compile Include="DTO\ExpelledStudentDto.cs" />
+    <Compile Include="DTO\ResultOfSessionDto.cs" />
+    <Compile Include="Helpers\SessionHelper.cs" />
+    <Compile Include="Models\BaseModel.cs" />
+    <Compile Include="Models\Exam.cs" />
+    <Compile Include="Models\Group.cs" />
+    <Compile Include="Models\ResultsOfExam.cs" />
+    <Compile Include="Models\Session.cs" />
+    <Compile Include="Models\Student.cs" />
+    <Compile Include="Models\Subject.cs" />
+    <Compile Include="Models\SubjectsOfGroup.cs" />
+    <Compile Include="Helpers\DataToExcelFileHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Helpers\SqlQueriesHelper.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Task6Library\Task6Library.csproj">
-      <Project>{fdf299e3-5e46-4e74-9ab8-e36b52e1e460}</Project>
-      <Name>Task6Library</Name>
-    </ProjectReference>
+    <Content Include="Scripts\DBDeployScript.sql" />
+    <Content Include="Scripts\DBFillDataScript.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="Microsoft.Office.Core">
+      <Guid>{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>8</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="Microsoft.Office.Interop.Excel">
+      <Guid>{00020813-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>9</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="VBIDE">
+      <Guid>{0002E157-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>5</VersionMajor>
+      <VersionMinor>3</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

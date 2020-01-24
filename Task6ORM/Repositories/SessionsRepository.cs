@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Task6ORM.Interfaces;
 using Task6ORM.Models;
-using Task6SQL;
+using Task6Library;
 
 namespace Task6ORM
 {
@@ -22,7 +17,7 @@ namespace Task6ORM
                 using (var query = new SqlCommand())
                 {
                     query.Connection = connection;
-                    query.CommandText = SqlQueries.FormDeleteQuery(typeof(Session), id);
+                    query.CommandText = SqlQueriesHelper.FormDeleteQuery(typeof(Session), id);
                     query.Connection.Open();
                     query.ExecuteNonQuery();
                     query.Connection.Close();
@@ -38,7 +33,7 @@ namespace Task6ORM
                 using (var query = new SqlCommand())
                 {
                     query.Connection = connection;
-                    query.CommandText = SqlQueries.FormSelectQuery(typeof(Session));
+                    query.CommandText = SqlQueriesHelper.FormSelectQuery(typeof(Session));
 
                     query.Connection.Open();
                     using (SqlDataReader reader = query.ExecuteReader())
@@ -71,7 +66,7 @@ namespace Task6ORM
                 using (var query = new SqlCommand())
                 {
                     query.Connection = connection;
-                    query.CommandText = SqlQueries.FormSelectByIdQuery(typeof(Session), id);
+                    query.CommandText = SqlQueriesHelper.FormSelectByIdQuery(typeof(Session), id);
 
                     query.Connection.Open();
                     using (SqlDataReader reader = query.ExecuteReader())

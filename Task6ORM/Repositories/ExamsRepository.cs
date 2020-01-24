@@ -4,7 +4,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using Task6ORM.Interfaces;
 using Task6ORM.Models;
-using Task6SQL;
+using Task6Library;
 
 namespace Task6ORM
 {
@@ -20,7 +20,7 @@ namespace Task6ORM
                 using (var query = new SqlCommand())
                 {
                     query.Connection = connection;
-                    query.CommandText = SqlQueries.FormDeleteQuery(typeof(Exam), id);
+                    query.CommandText = SqlQueriesHelper.FormDeleteQuery(typeof(Exam), id);
                     query.Connection.Open();
                     query.ExecuteNonQuery();
                     query.Connection.Close();
@@ -36,7 +36,7 @@ namespace Task6ORM
                 using (var query = new SqlCommand())
                 {
                     query.Connection = connection;
-                    query.CommandText = SqlQueries.FormSelectQuery(typeof(Exam));
+                    query.CommandText = SqlQueriesHelper.FormSelectQuery(typeof(Exam));
                     query.Connection.Open();
                     using (SqlDataReader reader = query.ExecuteReader())
                     {
@@ -47,7 +47,6 @@ namespace Task6ORM
                                 exams.Add(new Exam()
                                 {
                                     Id = (int)reader["Id"],
-                                    ExamType = (string)reader["ExamType"],
                                     Session = new Session { Id = (int)reader["SessionId"] },
                                     ExamDate = ((DateTime)reader["ExamDate"]).Date,
                                     SubjectsOfGroup = new SubjectsOfGroup { Id = (int)reader["SubjectsOfGroupId"] }
@@ -80,7 +79,7 @@ namespace Task6ORM
                 using (var query = new SqlCommand())
                 {
                     query.Connection = connection;
-                    query.CommandText = SqlQueries.FormSelectByIdQuery(typeof(Exam), id);
+                    query.CommandText = SqlQueriesHelper.FormSelectByIdQuery(typeof(Exam), id);
 
                     query.Connection.Open();
                     using (SqlDataReader reader = query.ExecuteReader())
@@ -90,7 +89,6 @@ namespace Task6ORM
                             exam = new Exam()
                             {
                                 Id = (int)reader["Id"],
-                                ExamType = (string)reader["ExamType"],
                                 Session = new Session { Id = (int)reader["SessionId"] },
                                 ExamDate = ((DateTime)reader["ExamDate"]).Date,
                                 SubjectsOfGroup = new SubjectsOfGroup { Id = (int)reader["SubjectsOfGroupId"] }

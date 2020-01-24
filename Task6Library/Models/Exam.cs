@@ -8,7 +8,6 @@ namespace Task6ORM.Models
 {
     public class Exam : BaseModel
     {
-        public string ExamType { get; set; }
         public Session Session { get; set; }
         public DateTime ExamDate { get; set; }
         public SubjectsOfGroup SubjectsOfGroup { get; set; }
