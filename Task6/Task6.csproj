@@ -50,6 +50,9 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="UpdateTest.cs" />
+    <Compile Include="CreateAndDeleteTest.cs" />
+    <Compile Include="GetByIdTest.cs" />
     <Compile Include="SaveToXlsxTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="GetAllTest.cs" />

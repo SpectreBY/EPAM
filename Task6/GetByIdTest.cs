@@ -8,10 +8,10 @@ using System.Linq;
 namespace Task6
 {
     /// <summary>
-    /// The unit test that represents testing selection of all of entities from database
+    /// The unit test that represents testing selection of entity by id from database
     /// </summary>
     [TestClass]
-    public class GetAllTest
+    public class GetByIdTest
     {
         /// <summary>
         /// Connection string to access Microsoft SQL Server Database
@@ -350,149 +350,149 @@ namespace Task6
         #endregion
 
         /// <summary>
-        /// Method for testing the gettion all of students from the database
+        /// Method for testing the getting of student by id from the database
         /// </summary>
         [TestMethod]
-        public void GetAllStudentsTest()
+        public void GetStudentsByIdTest()
         {
             List<bool> isEqualList = new List<bool>();
-            List<BaseModel> students = dbContext.StudentsRepository.GetAll();
-            foreach (var student in students)
+            List<int> ids = new List<int>() { 0, 4, 7 }; 
+            foreach(int id in ids)
             {
-                Student obj1 = (Student)student;
-                Student obj2 = studentsCases.Where(o => o.Id == obj1.Id &&
-                                                        o.FullName == obj1.FullName &&
-                                                        o.Gender == obj1.Gender &&
-                                                        o.DateOfBirth == obj1.DateOfBirth.Date &&
-                                                        o.Group.Id == obj1.Group.Id)
+                Student student = (Student)dbContext.StudentsRepository.GetById(id);
+                Student obj = studentsCases.Where(o => o.Id == student.Id &&
+                                                        o.FullName == student.FullName &&
+                                                        o.Gender == student.Gender &&
+                                                        o.DateOfBirth == student.DateOfBirth.Date &&
+                                                        o.Group.Id == student.Group.Id)
                                             .FirstOrDefault();
-                isEqualList.Add(obj2 == null ? false : true);
+                isEqualList.Add(obj == null ? false : true);
             }
             bool isEqualCollections = isEqualList.Contains(false);
             Assert.IsTrue(!isEqualCollections);
         }
 
         /// <summary>
-        /// Method for testing the gettion all of groups from the database
+        /// Method for testing the getting of group by id from the database
         /// </summary>
         [TestMethod]
-        public void GetAllGroupsTest()
+        public void GetGroupsByIdTest()
         {
             List<bool> isEqualList = new List<bool>();
-            List<BaseModel> groups = dbContext.GroupsRepository.GetAll();
-            foreach (var group in groups)
+            List<int> ids = new List<int>() { 1, 3 };
+            foreach (int id in ids)
             {
-                Group obj1 = (Group)group;
-                Group obj2 = groupsCases.Where(o => o.Id == obj1.Id &&
-                                                    o.Name == obj1.Name)
-                                        .FirstOrDefault();
-                isEqualList.Add(obj2 == null ? false : true);
+                Group group = (Group)dbContext.GroupsRepository.GetById(id);
+                Group obj = groupsCases.Where(o => o.Id == group.Id &&
+                                                   o.Name == group.Name)
+                                       .FirstOrDefault();
+                isEqualList.Add(obj == null ? false : true);
             }
             bool isEqualCollections = isEqualList.Contains(false);
             Assert.IsTrue(!isEqualCollections);
         }
 
         /// <summary>
-        /// Method for testing the gettion all of subjects from the database
+        /// Method for testing the getting of subject by id from the database
         /// </summary>
         [TestMethod]
-        public void GetAllSubjectsTest()
+        public void GetSubjectsByIdTest()
         {
             List<bool> isEqualList = new List<bool>();
-            List<BaseModel> subjects = dbContext.SubjectsRepository.GetAll();
-            foreach (var subject in subjects)
+            List<int> ids = new List<int>() { 0, 3, 4 };
+            foreach (int id in ids)
             {
-                Subject obj1 = (Subject)subject;
-                Subject obj2 = subjectsCases.Where(o => o.Id == obj1.Id &&
-                                                        o.Name == obj1.Name)
-                                            .FirstOrDefault();
-                isEqualList.Add(obj2 == null ? false : true);
+                Subject subject = (Subject)dbContext.SubjectsRepository.GetById(id);
+                Subject obj = subjectsCases.Where(o => o.Id == subject.Id &&
+                                                       o.Name == subject.Name)
+                                           .FirstOrDefault();
+                isEqualList.Add(obj == null ? false : true);
             }
             bool isEqualCollections = isEqualList.Contains(false);
             Assert.IsTrue(!isEqualCollections);
         }
 
         /// <summary>
-        /// Method for testing the gettion all of sessions from the database
+        /// Method for testing the getting of session by id from the database
         /// </summary>
         [TestMethod]
-        public void GetAllSessionsTest()
+        public void GetSessionsByIdTest()
         {
             List<bool> isEqualList = new List<bool>();
-            List<BaseModel> sessions = dbContext.SessionsRepository.GetAll();
-            foreach (var session in sessions)
+            List<int> ids = new List<int>() { 1, 2 };
+            foreach (int id in ids)
             {
-                Session obj1 = (Session)session;
-                Session obj2 = sessionsCases.Where(o => o.Id == obj1.Id &&
-                                                        o.EducationPeriod == obj1.EducationPeriod &&
-                                                        o.Semestr == obj1.Semestr)
-                                            .FirstOrDefault();
-                isEqualList.Add(obj2 == null ? false : true);
+                Session session = (Session)dbContext.SessionsRepository.GetById(id);
+                Session obj = sessionsCases.Where(o => o.Id == session.Id &&
+                                                       o.EducationPeriod == session.EducationPeriod &&
+                                                       o.Semestr == session.Semestr)
+                                           .FirstOrDefault();
+                isEqualList.Add(obj == null ? false : true);
             }
             bool isEqualCollections = isEqualList.Contains(false);
             Assert.IsTrue(!isEqualCollections);
         }
 
         /// <summary>
-        /// Method for testing the gettion all of subject of groups from the database
+        /// Method for testing the getting of subjects of group by id from the database
         /// </summary>
         [TestMethod]
-        public void GetAllSubjectOfGroupsTest()
+        public void GetSubjectOfGroupsByIdTest()
         {
             List<bool> isEqualList = new List<bool>();
-            List<BaseModel> subjectsOfGroups = dbContext.SubjectsOfGroupsRepository.GetAll();
-            foreach (var subjectsOfGroup in subjectsOfGroups)
+            List<int> ids = new List<int>() { 1, 3, 4 };
+            foreach (int id in ids)
             {
-                SubjectsOfGroup obj1 = (SubjectsOfGroup)subjectsOfGroup;
-                SubjectsOfGroup obj2 = subjectsOfGroupsCases.Where(o => o.Id == obj1.Id &&
-                                                                        o.Group.Id == obj1.Group.Id &&
-                                                                        o.Subject.Id == obj1.Subject.Id)
-                                                            .FirstOrDefault();
-                isEqualList.Add(obj2 == null ? false : true);
+                SubjectsOfGroup subjectsOfGroup = (SubjectsOfGroup)dbContext.SubjectsOfGroupsRepository.GetById(id);
+                SubjectsOfGroup obj = subjectsOfGroupsCases.Where(o => o.Id == subjectsOfGroup.Id &&
+                                                                        o.Group.Id == subjectsOfGroup.Group.Id &&
+                                                                        o.Subject.Id == subjectsOfGroup.Subject.Id)
+                                                           .FirstOrDefault();
+                isEqualList.Add(obj == null ? false : true);
             }
             bool isEqualCollections = isEqualList.Contains(false);
             Assert.IsTrue(!isEqualCollections);
         }
 
         /// <summary>
-        /// Method for testing the gettion all of exams from the database
+        /// Method for testing the exam by id from the database
         /// </summary>
         [TestMethod]
-        public void GetAllExamsTest()
+        public void GetExamsByIdTest()
         {
             List<bool> isEqualList = new List<bool>();
-            List<BaseModel> exams = dbContext.ExamsRepository.GetAll();
-            foreach (var exam in exams)
+            List<int> ids = new List<int>() { 0, 1, 2 };
+            foreach (int id in ids)
             {
-                Exam obj1 = (Exam)exam;
-                Exam obj2 = examsCases.Where(o => o.Id == obj1.Id &&
-                                                  o.ExamDate == obj1.ExamDate.Date &&
-                                                  o.Session.Id == obj1.Session.Id &&
-                                                  o.SubjectsOfGroup.Id == obj1.SubjectsOfGroup.Id)
-                                      .FirstOrDefault();
-                isEqualList.Add(obj2 == null ? false : true);
-            }
+                Exam exam = (Exam)dbContext.ExamsRepository.GetById(id);
+                Exam obj = examsCases.Where(o => o.Id == exam.Id &&
+                                                 o.ExamDate == exam.ExamDate.Date &&
+                                                 o.Session.Id == exam.Session.Id &&
+                                                 o.SubjectsOfGroup.Id == exam.SubjectsOfGroup.Id)
+                                     .FirstOrDefault();
+                isEqualList.Add(obj == null ? false : true);
+            }         
             bool isEqualCollections = isEqualList.Contains(false);
             Assert.IsTrue(!isEqualCollections);
         }
 
         /// <summary>
-        /// Method for testing the gettion all of results of exams from the database
+        /// Method for testing the getting of results of exam by id from the database
         /// </summary>
         [TestMethod]
-        public void GetAllResultsOfExamsTest()
+        public void GetResultsOfExamsByIdTest()
         {
             List<bool> isEqualList = new List<bool>();
-            List<BaseModel> resultsOfExams = dbContext.ResultsOfExamsRepository.GetAll();
-            foreach (var resultsOfExam in resultsOfExams)
+            List<int> ids = new List<int>() { 4, 5, 7 };
+            foreach (int id in ids)
             {
-                ResultsOfExam obj1 = (ResultsOfExam)resultsOfExam;
-                ResultsOfExam obj2 = resultsExamsCases.Where(o => o.Id == obj1.Id &&
-                                                                  o.Exam.Id == obj1.Exam.Id &&
-                                                                  o.Student.Id == obj1.Student.Id &&
-                                                                  o.Result == obj1.Result)
-                                                      .FirstOrDefault();
-                isEqualList.Add(obj2 == null ? false : true);
+                ResultsOfExam resultsOfExam = (ResultsOfExam)dbContext.ResultsOfExamsRepository.GetById(id);
+                ResultsOfExam obj = resultsExamsCases.Where(o => o.Id == resultsOfExam.Id &&
+                                                                 o.Exam.Id == resultsOfExam.Exam.Id &&
+                                                                 o.Student.Id == resultsOfExam.Student.Id &&
+                                                                 o.Result == resultsOfExam.Result)
+                                                     .FirstOrDefault();
+                isEqualList.Add(obj == null ? false : true);
             }
             bool isEqualCollections = isEqualList.Contains(false);
             Assert.IsTrue(!isEqualCollections);

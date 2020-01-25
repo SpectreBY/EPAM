@@ -8,26 +8,28 @@ using System.Collections.Generic;
 namespace Task6
 {
     /// <summary>
-    /// 
+    /// The unit test that represents saving data to xlsx format excel files
     /// </summary>
     [TestClass]
     public class SaveToXlsxTest
     {
-        private const string connectionString = @"Data Source=(local);Initial Catalog=Task6DB;Integrated Security=True";
-        private DbContext dbContext;
-        private SessionHelper sessionHelper;
-
         /// <summary>
-        /// 
+        /// Connection string to access Microsoft SQL Server Database
         /// </summary>
-        public SaveToXlsxTest()
-        {
-            dbContext = DbContext.GetInstance(connectionString);
-            sessionHelper = new SessionHelper();
-        }
+        private const string connectionString = @"Data Source=(local);Initial Catalog=Task6DB;Integrated Security=True";
 
         /// <summary>
-        /// 
+        /// Object for access to repositories
+        /// </summary>
+        private DbContext dbContext = DbContext.GetInstance(connectionString);
+
+        /// <summary>
+        /// Helper object for save date to xlsx
+        /// </summary>
+        private SessionHelper sessionHelper = new SessionHelper();
+
+        /// <summary>
+        /// Method for save total results Of sessions to xlsx file
         /// </summary>
         [TestMethod]
         public void SaveTotalResultsOfSessionsTest()
@@ -39,7 +41,7 @@ namespace Task6
         }
 
         /// <summary>
-        /// 
+        /// Method for save expelled students to xlsx file
         /// </summary>
         [TestMethod]
         public void SaveExpelledStudentsTest()
@@ -48,14 +50,6 @@ namespace Task6
             List<ExpelledStudentDto> resultsOfSessions = sessionHelper.GetExpelledStudents(results);
             bool isSaved = DataToExcelFileHelper.SaveExpelledStudentsToXLSX(resultsOfSessions);
             Assert.IsTrue(isSaved);
-        }
-
-        [TestMethod]
-        public void GetAllStudentsTest()
-        {
-            dbContext.DeployDatabase();
-            //List<BaseModel> results = dbContext.SessionsRepository.GetAll();
-            //Assert.IsTrue(isSaved);
         }
     }
 }

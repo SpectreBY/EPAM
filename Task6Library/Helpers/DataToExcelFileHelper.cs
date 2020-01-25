@@ -9,11 +9,26 @@ using Task6ORM.Models;
 
 namespace Task6Library
 {
+    /// <summary>
+    /// Helper static class which represents functionality for save data to xlsx files
+    /// </summary>
     public static class DataToExcelFileHelper
     {
+        /// <summary>
+        /// constant field with path of total session results file
+        /// </summary>
         private const string ResultsPath = "ResultsTable.xlsx";
+
+        /// <summary>
+        /// constant field with path of expelled students file
+        /// </summary>
         private const string ExpelledStudentsPath = "ExpelledStudentsTable.xlsx";
 
+        /// <summary>
+        /// Method for save total session results to xlsx file
+        /// </summary>
+        /// <param name="results"></param>
+        /// <returns></returns>
         public static bool SaveResultsToXLSX(List<ResultOfSessionDto> results)
         {
             try
@@ -74,6 +89,11 @@ namespace Task6Library
             }
         }
 
+        /// <summary>
+        /// Method for save expelled students to xlsx file
+        /// </summary>
+        /// <param name="results"></param>
+        /// <returns></returns>
         public static bool SaveExpelledStudentsToXLSX(List<ExpelledStudentDto> results)
         {
             try

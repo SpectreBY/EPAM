@@ -8,10 +8,21 @@ using Task6ORM.Models;
 
 namespace Task6Library
 {
+    /// <summary>
+    /// Helper class which represents functionality for get expelled student data and get total sessions results data
+    /// </summary>
     public class SessionHelper
     {
+        /// <summary>
+        /// constant field which storage minimum mark for grade a exam
+        /// </summary>
         private const int MinimalMark = 4;
 
+        /// <summary>
+        /// Method which return data with expelled students
+        /// </summary>
+        /// <param name="resultsOfExams"></param>
+        /// <returns></returns>
         public List<ExpelledStudentDto> GetExpelledStudents(List<BaseModel> resultsOfExams)
         {
             List<ExpelledStudentDto> expelledStudents = new List<ExpelledStudentDto>();
@@ -33,6 +44,11 @@ namespace Task6Library
             return expelledStudents;
         }
 
+        /// <summary>
+        /// Method which return data with total results of sessions
+        /// </summary>
+        /// <param name="resultsOfExams"></param>
+        /// <returns></returns>
         public List<ResultOfSessionDto> GetTotalResultsOfSessions (List<BaseModel> resultsOfExams)
         {
             List<List<IGrouping<string, ResultsOfExam>>> list = new List<List<IGrouping<string, ResultsOfExam>>>();

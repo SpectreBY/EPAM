@@ -5,20 +5,39 @@ using System.Text;
 using Task6ORM.Interfaces;
 using Task6ORM.Models;
 using Task6Library;
+using System;
 
 namespace Task6ORM
 {
+    /// <summary>
+    /// Abstract repository class which represents base realization of CRUD queries
+    /// </summary>
     public abstract class BaseRepository : IService
     {
+        /// <summary>
+        /// Field for storage connection string for get access to the database
+        /// </summary>
         private string connectionString;
+
+        /// <summary>
+        /// Field for storage database context object
+        /// </summary>
         private DbContext dbContext;
 
+        /// <summary>
+        /// Construtor which get connectionString and dbContext parametres
+        /// </summary>
+        /// <param name="connectionString"></param>
+        /// <param name="dbContext"></param>
         public BaseRepository(string connectionString, DbContext dbContext)
         {
             this.connectionString = connectionString;
             this.dbContext = dbContext;
         }
 
+        /// <summary>
+        /// Property for access to connectionString field value
+        /// </summary>
         public string ConnectionString
         {
             get
@@ -26,6 +45,10 @@ namespace Task6ORM
                 return connectionString;
             }
         }
+
+        /// <summary>
+        /// Property for access to dbContext field value
+        /// </summary>
         public DbContext DbContext
         {
             get
@@ -34,7 +57,12 @@ namespace Task6ORM
             }
         }
 
-        public virtual void Create(BaseModel model)
+        /// <summary>
+        /// Method for insert entity into the database
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public virtual bool Create(BaseModel model)
         {
             StringBuilder columns = new StringBuilder();
             StringBuilder columnValues = new StringBuilder();
@@ -77,21 +105,34 @@ namespace Task6ORM
             columnValuesLine = columnValuesLine.Insert(0, string.Format("'{0}', ", newId));
 
             string querySql = string.Format(SqlQueriesHelper.Insert, tableName, columnsLine, columnValuesLine);
-
+ 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 using (var query = new SqlCommand())
                 {
-                    query.Connection = connection;
-                    query.CommandText = querySql;
-                    query.Connection.Open();
-                    query.ExecuteNonQuery();
-                    query.Connection.Close();
+                    try
+                    {
+                        query.Connection = connection;
+                        query.CommandText = querySql;
+                        query.Connection.Open();
+                        query.ExecuteNonQuery();
+                        query.Connection.Close();
+                        return true;
+                    }
+                    catch(Exception ex)
+                    {
+                        return false;
+                    }
                 }
             }
         }
 
-        public virtual void Update(BaseModel model)
+        /// <summary>
+        /// Method for update entity in the database
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public virtual bool Update(BaseModel model)
         {
             StringBuilder columns = new StringBuilder();
 
@@ -123,15 +164,28 @@ namespace Task6ORM
             {
                 using (var query = new SqlCommand())
                 {
-                    query.Connection = connection;
-                    query.CommandText = querySql;
-                    query.Connection.Open();
-                    query.ExecuteNonQuery();
-                    query.Connection.Close();
+                    try
+                    {
+                        query.Connection = connection;
+                        query.CommandText = querySql;
+                        query.Connection.Open();
+                        query.ExecuteNonQuery();
+                        query.Connection.Close();
+                        return true;
+                    }
+                    catch (Exception ex)
+                    {
+                        return false;
+                    }
                 }
             }
         }
 
+        /// <summary>
+        /// Helper method for generate unique key (id)
+        /// </summary>
+        /// <param name="tableName"></param>
+        /// <returns></returns>
         public int GetUniqueKey(string tableName)
         {
             List<int> keys = new List<int>();
@@ -171,8 +225,24 @@ namespace Task6ORM
             return newId;
         }
 
-        public abstract void Delete(int id);
+        /// <summary>
+        /// Abstract method for delete entity by id value from the database
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public abstract bool Delete(int id);
+
+        /// <summary>
+        /// Abstract method for get all of entities from the database
+        /// </summary>
+        /// <returns></returns>
         public abstract List<BaseModel> GetAll();
+
+        /// <summary>
+        /// Abstract method for get entity by id value from the database
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public abstract BaseModel GetById(int id);
     }
 }
