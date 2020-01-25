@@ -13,7 +13,7 @@ namespace Task6Library
 
         public static string GetDeployScript()
         {
-            using (StreamReader sr = new StreamReader("DBDeployScript.sql")) 
+            using (StreamReader sr = new StreamReader("../../../Task6Library/Scripts/DBDeployScript.sql")) 
             {
                 string deploySql = sr.ReadToEnd();
                 return deploySql;
@@ -22,7 +22,7 @@ namespace Task6Library
 
         public static string GetFillDataScript()
         {
-            using (StreamReader sr = new StreamReader("DBFillDataScript.sql"))
+            using (StreamReader sr = new StreamReader("../../../Task6Library/Scripts/DBFillDataScript.sql"))
             {
                 string fillSql = sr.ReadToEnd();
                 return fillSql;

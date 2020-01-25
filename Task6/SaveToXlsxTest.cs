@@ -7,26 +7,55 @@ using System.Collections.Generic;
 
 namespace Task6
 {
+    /// <summary>
+    /// 
+    /// </summary>
     [TestClass]
     public class SaveToXlsxTest
     {
-        private const string connectionString = @"Data Source=User-pc;Initial Catalog=Task6Database;Integrated Security=True";
-        DbContext dbContext;
+        private const string connectionString = @"Data Source=(local);Initial Catalog=Task6DB;Integrated Security=True";
+        private DbContext dbContext;
+        private SessionHelper sessionHelper;
 
+        /// <summary>
+        /// 
+        /// </summary>
         public SaveToXlsxTest()
         {
             dbContext = DbContext.GetInstance(connectionString);
+            sessionHelper = new SessionHelper();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [TestMethod]
+        public void SaveTotalResultsOfSessionsTest()
+        {
+            List<BaseModel> results = dbContext.ResultsOfExamsRepository.GetAll();
+            List<ResultOfSessionDto> resultsOfSessions = sessionHelper.GetTotalResultsOfSessions(results);
+            bool isSaved = DataToExcelFileHelper.SaveResultsToXLSX(resultsOfSessions);
+            Assert.IsTrue(isSaved);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [TestMethod]
+        public void SaveExpelledStudentsTest()
+        {
+            List<BaseModel> results = dbContext.ResultsOfExamsRepository.GetAll();
+            List<ExpelledStudentDto> resultsOfSessions = sessionHelper.GetExpelledStudents(results);
+            bool isSaved = DataToExcelFileHelper.SaveExpelledStudentsToXLSX(resultsOfSessions);
+            Assert.IsTrue(isSaved);
         }
 
         [TestMethod]
-        public void TestMethod1()
+        public void GetAllStudentsTest()
         {
-            var res = dbContext.ResultsOfExamsRepository.GetAll();
-            SessionHelper sessionHelper = new SessionHelper();
-            var r = sessionHelper.GetTotalResultsOfSessions(res);
-            var v = sessionHelper.GetExpelledStudents(res);
-            bool rrr = DataToExcelFileHelper.SaveResultsToXLSX(r);
-            bool rrr2 = DataToExcelFileHelper.SaveExpelledStudentsToXLSX(v);
+            dbContext.DeployDatabase();
+            //List<BaseModel> results = dbContext.SessionsRepository.GetAll();
+            //Assert.IsTrue(isSaved);
         }
     }
 }

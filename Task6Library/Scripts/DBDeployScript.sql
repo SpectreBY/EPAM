@@ -1,4 +1,8 @@
-﻿CREATE TABLE [dbo].[Groups]
+﻿CREATE DATABASE Task6DB;
+GO
+USE Task6DB;
+GO
+CREATE TABLE [dbo].[Groups]
 (
 	[Id] INT NOT NULL PRIMARY KEY([Id] ASC), 
     [Name] NVARCHAR(50) NULL
@@ -30,7 +34,6 @@ CREATE TABLE [dbo].[SubjectsOfGroups]
 CREATE TABLE [dbo].[Exams]
 (
 	[Id] INT NOT NULL PRIMARY KEY([Id] ASC),
-	[ExamType] NVARCHAR(50) NULL, 
 	[SessionId] INT NULL, 
     [ExamDate] DATETIME NULL,
 	[SubjectsOfGroupId] INT NULL,
@@ -42,7 +45,7 @@ CREATE TABLE [dbo].[Students]
 (
     [Id] INT NOT NULL PRIMARY KEY([Id] ASC),
     [FullName] NVARCHAR (150) NULL,
-    [Gender] INT NULL,
+    [Gender]  NVARCHAR (10) NULL,
     [DateOfBirth] DATETIME NULL,
     [GroupId] INT NULL,
     CONSTRAINT fk_students FOREIGN KEY([GroupId]) REFERENCES [dbo].[Groups]([Id])
@@ -53,7 +56,7 @@ CREATE TABLE [dbo].[ResultsOfExams]
     [Id] INT NOT NULL PRIMARY KEY([Id] ASC),
     [StudentId] INT NULL,
     [ExamId] INT NULL,
-    [Result] NVARCHAR (50) NULL,
+    [Result] INT NULL,
 	CONSTRAINT fk_results_exams_1 FOREIGN KEY([StudentId]) REFERENCES [dbo].[Students]([Id]),
 	CONSTRAINT fk_results_exams_2 FOREIGN KEY([ExamId]) REFERENCES [dbo].[Exams]([Id])
 );

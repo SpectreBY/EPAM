@@ -10,7 +10,7 @@ namespace Task6ORM.Models
     {
         public string FullName { get; set; }
         public string Gender { get; set; }
-        public DateTime? DateOfBirth { get; set; }
+        public DateTime DateOfBirth { get; set; }
         public Group Group { get; set; }
     }
 }

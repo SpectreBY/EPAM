@@ -1,4 +1,5 @@
-﻿using System.Data.SqlClient;
+﻿using System;
+using System.Data.SqlClient;
 using Task6Library;
 
 namespace Task6ORM
@@ -76,7 +77,7 @@ namespace Task6ORM
 
         public bool DeployDatabase()
         {
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (SqlConnection connection = new SqlConnection("Server=localhost;Integrated security=SSPI;database=master"))
             {
                 using (var query = new SqlCommand())
                 {
@@ -96,7 +97,7 @@ namespace Task6ORM
                         query.Connection.Close();
                         return true;
                     }
-                    catch(SqlException)
+                    catch (Exception ex)
                     {
                         return false;
                     }
