@@ -22,7 +22,7 @@ namespace Task3FiguresLib.Figures
         /// </summary>
         /// <param name="material"></param>
         /// <param name="radius"></param>
-        public Circle(Materials material, double radius) : base(material)
+        public Circle(Material material, double radius) : base(material)
         {
             this.radius = radius;
         }
@@ -38,21 +38,21 @@ namespace Task3FiguresLib.Figures
                 Square square = (Square)figure;
                 radius = square.Side / 2;
                 Material = square.Material;
-                Color = square.Color;
+                Material.Color = square.Material.Color;
             }
             if (figure is Circle)
             {
                 Circle circle = (Circle)figure;
                 radius = circle.Radius * PERCENT_FROM_VALUE;
                 Material = circle.Material;
-                Color = circle.Color;
+                Material.Color = circle.Material.Color;
             }
             if (figure is Triangle)
             {
                 Triangle triangle = (Triangle)figure;
                 radius = triangle.Side / (2 * Math.Sqrt(3));
                 Material = triangle.Material;
-                Color = triangle.Color;
+                Material.Color = triangle.Material.Color;
             }
         }
 
@@ -86,23 +86,14 @@ namespace Task3FiguresLib.Figures
         }
 
         /// <summary>
-        /// Method for painting figure
-        /// </summary>
-        /// <param name="color"></param>
-        public override void ToPaint(Colors color)
-        {
-            base.ToPaint(color);
-        }
-
-        /// <summary>
         /// Method for write characteristics to xml file by StreamWriter
         /// </summary>
         /// <param name="writer"></param>
-        public override void WriteByStreamWriter(StreamWriter writer)
+        public override void WriteByStreamWriterHelper(StreamWriter writer)
         {
             writer.WriteLine(string.Format("    <figuretype>{0}</figuretype>", "Circle"));
-            writer.WriteLine(string.Format("    <color>{0}</color>", Color.ToString()));
-            writer.WriteLine(string.Format("    <material>{0}</material>", Material.ToString()));
+            writer.WriteLine(string.Format("    <color>{0}</color>", Material.Color.ToString()));
+            writer.WriteLine(string.Format("    <material>{0}</material>", Material.MaterialType.ToString()));
             writer.WriteLine(string.Format("    <radius>{0}</radius>", radius));
         }
 
@@ -110,16 +101,16 @@ namespace Task3FiguresLib.Figures
         /// Method for write characteristics to xml file by XmlWriter
         /// </summary>
         /// <param name="writer"></param>
-        public override void WriteByXmlWriter(XmlWriter writer)
+        public override void WriteByXmlWriterHelper(XmlWriter writer)
         {
             writer.WriteStartElement("figuretype");
             writer.WriteValue("Circle");
             writer.WriteEndElement();
             writer.WriteStartElement("color");
-            writer.WriteValue(Color.ToString());
+            writer.WriteValue(Material.Color.ToString());
             writer.WriteEndElement();
             writer.WriteStartElement("material");
-            writer.WriteValue(Material.ToString());
+            writer.WriteValue(Material.MaterialType.ToString());
             writer.WriteEndElement();
             writer.WriteStartElement("radius");
             writer.WriteValue(radius);

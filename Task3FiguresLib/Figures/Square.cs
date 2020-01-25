@@ -22,7 +22,7 @@ namespace Task3FiguresLib.Figures
         /// </summary>
         /// <param name="material"></param>
         /// <param name="side"></param>
-        public Square(Materials material, double side) : base(material)
+        public Square(Material material, double side) : base(material)
         {
             this.side = side;
         }
@@ -38,21 +38,21 @@ namespace Task3FiguresLib.Figures
                 Square square = (Square)figure;
                 side = square.Side * PERCENT_FROM_VALUE;
                 Material = square.Material;
-                Color = square.Color;
+                Material.Color = square.Material.Color;
             }
             if (figure is Circle)
             {
                 Circle circle = (Circle)figure;
                 side = 2 * circle.Radius / Math.Sqrt(2);
                 Material = circle.Material;
-                Color = circle.Color;
+                Material.Color = circle.Material.Color;
             }
             if (figure is Triangle)
             {
                 Triangle triangle = (Triangle)figure;
                 side = triangle.Side / 2;
                 Material = triangle.Material;
-                Color = triangle.Color;
+                Material.Color = triangle.Material.Color;
             }
         }
 
@@ -65,14 +65,6 @@ namespace Task3FiguresLib.Figures
             set { side = value; }
         }
 
-        /// <summary>
-        /// Method for painting figure
-        /// </summary>
-        /// <param name="color"></param>
-        public override void ToPaint(Colors color)
-        {
-            base.ToPaint(color);
-        }
 
         /// <summary>
         /// Method for get sum of perimetr
@@ -98,16 +90,16 @@ namespace Task3FiguresLib.Figures
         /// Method for write characteristics to xml file by XmlWriter
         /// </summary>
         /// <param name="writer"></param>
-        public override void WriteByXmlWriter(XmlWriter writer)
+        public override void WriteByXmlWriterHelper(XmlWriter writer)
         {
             writer.WriteStartElement("figuretype");
             writer.WriteValue("Square");
             writer.WriteEndElement();
             writer.WriteStartElement("color");
-            writer.WriteValue(Color.ToString());
+            writer.WriteValue(Material.Color.ToString());
             writer.WriteEndElement();
             writer.WriteStartElement("material");
-            writer.WriteValue(Material.ToString());
+            writer.WriteValue(Material.MaterialType.ToString());
             writer.WriteEndElement();
             writer.WriteStartElement("a");
             writer.WriteValue(side);
@@ -127,11 +119,11 @@ namespace Task3FiguresLib.Figures
         /// Method for write characteristics to xml file by StreamWriter
         /// </summary>
         /// <param name="writer"></param>
-        public override void WriteByStreamWriter(StreamWriter writer)
+        public override void WriteByStreamWriterHelper(StreamWriter writer)
         {
             writer.WriteLine(string.Format("    <figuretype>{0}</figuretype>", "Square"));
-            writer.WriteLine(string.Format("    <color>{0}</color>", Color.ToString()));
-            writer.WriteLine(string.Format("    <material>{0}</material>", Material.ToString()));
+            writer.WriteLine(string.Format("    <color>{0}</color>", Material.Color.ToString()));
+            writer.WriteLine(string.Format("    <material>{0}</material>", Material.MaterialType.ToString()));
             writer.WriteLine(string.Format("    <a>{0}</a>", side));
             writer.WriteLine(string.Format("    <b>{0}</a>", side));
             writer.WriteLine(string.Format("    <c>{0}</a>", side));

@@ -4,13 +4,14 @@ using System.IO;
 using System.Text;
 using System.Xml;
 using Task3EnumsLib.Enums;
+using Task3FiguresLib.Interfaces;
 
 namespace Task3FiguresLib.Figures
 {
     /// <summary>
     /// An abstract class that represents the basic characteristics of all figures
     /// </summary>
-    public abstract class Figure
+    public abstract class Figure : IFormFigure
     {
         /// <summary>
         /// Constant value for cut figure from another figure
@@ -18,26 +19,17 @@ namespace Task3FiguresLib.Figures
         public const double PERCENT_FROM_VALUE = 0.9;
 
         /// <summary>
-        /// A variable that indicates whether the figure has been painted
+        /// 
         /// </summary>
-        private bool wasPainted;
+        private Material material;
 
         /// <summary>
         /// Constructor for announcement of figure object with input material
         /// </summary>
         /// <param name="material"></param>
-        public Figure(Materials material)
+        public Figure(Material material)
         {
-            Material = material;
-            wasPainted = false;
-            if (material == Materials.Paper)
-            {
-                Color = Colors.White;
-            }
-            else
-            {
-                Color = Colors.Colorless;
-            }
+            this.material = material;
         }
 
         /// <summary>
@@ -45,33 +37,15 @@ namespace Task3FiguresLib.Figures
         /// </summary>
         /// <param name="figure"></param>
         public Figure(Figure figure)
-        {  }
+        { }
 
         /// <summary>
-        /// Property which stores the value of color
+        /// 
         /// </summary>
-        public Colors Color { get; set; }
-
-        /// <summary>
-        /// Property which stores the value of material
-        /// </summary>
-        public Materials Material { get; set; }
-
-        /// <summary>
-        /// Method for painting figure
-        /// </summary>
-        /// <param name="color"></param>
-        public virtual void ToPaint(Colors color)
+        public Material Material
         {
-            if (!wasPainted && Material == Materials.Paper)
-            {
-                Color = color;
-                wasPainted = true;
-            }
-            else
-            {
-                throw new Exception("Данная фигура уже покрашена");
-            }
+            get { return material; }
+            set { material = value; }
         }
 
         /// <summary>
@@ -90,12 +64,12 @@ namespace Task3FiguresLib.Figures
         /// Abstract method for write characteristics to xml file by XmlWriter
         /// </summary>
         /// <param name="writer"></param>
-        public abstract void WriteByXmlWriter(XmlWriter writer);
+        public abstract void WriteByXmlWriterHelper(XmlWriter writer);
 
         /// <summary>
         /// Abstract method for write characteristics to xml file by StreamWriter
         /// </summary>
         /// <param name="writer"></param>
-        public abstract void WriteByStreamWriter(StreamWriter writer);
+        public abstract void WriteByStreamWriterHelper(StreamWriter writer);
     }
 }

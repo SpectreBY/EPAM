@@ -6,23 +6,24 @@ using System.Text.RegularExpressions;
 using System.Xml;
 using Task3EnumsLib.Enums;
 using Task3FiguresLib.Figures;
+using Task3FiguresLib.Interfaces;
 
 namespace Task3FiguresLib
 {
     /// <summary>
     /// Box for figures and functions for working with it
     /// </summary>
-    public class Box
+    public class Box: IWriteFile
     {
         /// <summary>
         /// Collection of figures
         /// </summary>
-        private static List<Figure> figures = new List<Figure>();
+        private List<Figure> figures = new List<Figure>();
 
         /// <summary>
         /// Property for access to collection
         /// </summary>
-        public static List<Figure> Figures
+        public List<Figure> Figures
         {
             get { return figures; }
         }
@@ -31,7 +32,7 @@ namespace Task3FiguresLib
         /// Method for add figure to collection
         /// </summary>
         /// <param name="figure"></param>
-        public static void AddFigure(Figure figure)
+        public void AddFigure(Figure figure)
         {
             if(!figures.Contains(figure))
             {
@@ -47,7 +48,7 @@ namespace Task3FiguresLib
         /// </summary>
         /// <param name="number"></param>
         /// <returns></returns>
-        public static Figure ShowByNumber(int number)
+        public Figure ShowByNumber(int number)
         {
             if(number <= figures.Count && figures.Count > 0)
             {
@@ -64,7 +65,7 @@ namespace Task3FiguresLib
         /// </summary>
         /// <param name="number"></param>
         /// <returns></returns>
-        public static Figure ShowByNumberAndRemove(int number)
+        public Figure ShowByNumberAndRemove(int number)
         {
             if (number <= figures.Count && figures.Count > 0)
             {
@@ -83,7 +84,7 @@ namespace Task3FiguresLib
         /// </summary>
         /// <param name="figure"></param>
         /// <param name="number"></param>
-        public static void ReplaceByNumber(Figure figure, int number)
+        public void ReplaceByNumber(Figure figure, int number)
         {
             if (number <= figures.Count && figures.Count > 0)
             {
@@ -96,9 +97,9 @@ namespace Task3FiguresLib
         /// </summary>
         /// <param name="figure"></param>
         /// <returns></returns>
-        public static List<Figure> FindEquivalent(Figure figure)
+        public List<Figure> FindEquivalent(Figure figure)
         {
-            List<Figure> sameFigures = figures.Where(o => o.Color.Equals(figure.Color) && o.Material.Equals(figure.Material)).ToList();
+            List<Figure> sameFigures = figures.Where(o => o.Material.Color.Equals(figure.Material.Color) && o.Material.Equals(figure.Material)).ToList();
             return sameFigures;
         }
 
@@ -106,7 +107,7 @@ namespace Task3FiguresLib
         /// Method which return quantity of figures in collection
         /// </summary>
         /// <returns></returns>
-        public static int ShowQuantity()
+        public int ShowQuantity()
         {
             return figures.Count;
         }
@@ -115,7 +116,7 @@ namespace Task3FiguresLib
         /// Method which return sum of squares of figures
         /// </summary>
         /// <returns></returns>
-        public static double ShowSquareSum()
+        public double ShowSquareSum()
         {
             double sum = figures.Sum(o => o.GetSquare());
             return sum;
@@ -125,7 +126,7 @@ namespace Task3FiguresLib
         /// Method which return sum of perimeters of figures
         /// </summary>
         /// <returns></returns>
-        public static double ShowPrimetrSum()
+        public double ShowPrimetrSum()
         {
             double sum = figures.Sum(o => o.GetPerimetr());
             return sum;
@@ -135,7 +136,7 @@ namespace Task3FiguresLib
         /// Method which return collection of figures with Circle type
         /// </summary>
         /// <returns></returns>
-        public static List<Figure> ShowCircles()
+        public List<Figure> ShowCircles()
         {
             List<Figure> circles = figures.Where(o => o is Circle).ToList();
             return circles;
@@ -145,9 +146,9 @@ namespace Task3FiguresLib
         /// Method which return collection of figures with Envelope material
         /// </summary>
         /// <returns></returns>
-        public static List<Figure> ShowEnvelopeFigures()
+        public List<Figure> ShowEnvelopeFigures()
         {
-            List<Figure> envelopeFigures = figures.Where(o => o.Material == Materials.Envelope).ToList();
+            List<Figure> envelopeFigures = figures.Where(o => o.Material.MaterialType == MaterialTypes.Envelope).ToList();
             return envelopeFigures;
         }
 
@@ -156,7 +157,7 @@ namespace Task3FiguresLib
         /// </summary>
         /// <param name="mode"></param>
         /// <param name="filename"></param>
-        public static void SaveFiguresByXmlWriter(SaveModes mode, string filename)
+        public void SaveFiguresByXmlWriter(SaveModes mode, string filename)
         {
             XmlWriter writer;
             XmlWriterSettings writerSettings = new XmlWriterSettings();
@@ -165,31 +166,31 @@ namespace Task3FiguresLib
             writer.WriteStartDocument();
             writer.WriteStartElement("figures");
             foreach (var figure in figures)
-            {          
-                switch(mode)
+            {
+                switch (mode)
                 {
                     case SaveModes.All:
                         writer.WriteStartElement("figure");
-                        figure.WriteByXmlWriter(writer);
+                        figure.WriteByXmlWriterHelper(writer);
                         writer.WriteEndElement();
                         break;
                     case SaveModes.OnlyEnvelope:
-                        if (figure.Material == Materials.Envelope)
+                        if (figure.Material.MaterialType == MaterialTypes.Envelope)
                         {
                             writer.WriteStartElement("figure");
-                            figure.WriteByXmlWriter(writer);
+                            figure.WriteByXmlWriterHelper(writer);
                             writer.WriteEndElement();
                         }
                         break;
                     case SaveModes.OnlyPaper:
-                        if (figure.Material == Materials.Paper)
+                        if (figure.Material.MaterialType == MaterialTypes.Paper)
                         {
                             writer.WriteStartElement("figure");
-                            figure.WriteByXmlWriter(writer);
+                            figure.WriteByXmlWriterHelper(writer);
                             writer.WriteEndElement();
                         }
                         break;
-                }          
+                }
             }
             writer.WriteEndElement();
             writer.WriteEndDocument();
@@ -202,38 +203,37 @@ namespace Task3FiguresLib
         /// </summary>
         /// <param name="mode"></param>
         /// <param name="filename"></param>
-        public static void SaveFiguresByStreamWriter(SaveModes mode, string filename)
+        public void SaveFiguresByStreamWriter(SaveModes mode, string filename)
         {
-            string path = "figuresStreamWriter.xml";
-            StreamWriter writer = new StreamWriter(path);
+            StreamWriter writer = new StreamWriter(filename);
             writer.WriteLine(string.Format("<?xml version={0}1.0{1} encoding={2}utf-8{3} ?>", @"""", @"""", @"""", @""""));
             writer.WriteLine("<figures>");
             foreach (var figure in figures)
-            {        
+            {
                 switch (mode)
                 {
                     case SaveModes.All:
                         writer.WriteLine("  <figure>");
-                        figure.WriteByStreamWriter(writer);
+                        figure.WriteByStreamWriterHelper(writer);
                         writer.WriteLine("  </figure>");
                         break;
                     case SaveModes.OnlyEnvelope:
-                        if (figure.Material == Materials.Envelope)
+                        if (figure.Material.MaterialType == MaterialTypes.Envelope)
                         {
                             writer.WriteLine("  <figure>");
-                            figure.WriteByStreamWriter(writer);
+                            figure.WriteByStreamWriterHelper(writer);
                             writer.WriteLine("  </figure>");
                         }
                         break;
                     case SaveModes.OnlyPaper:
-                        if (figure.Material == Materials.Paper)
+                        if (figure.Material.MaterialType == MaterialTypes.Paper)
                         {
                             writer.WriteLine("  <figure>");
-                            figure.WriteByStreamWriter(writer);
+                            figure.WriteByStreamWriterHelper(writer);
                             writer.WriteLine("  </figure>");
                         }
                         break;
-                }         
+                }
             }
             writer.WriteLine("</figures>");
             writer.Close();
@@ -244,10 +244,9 @@ namespace Task3FiguresLib
         /// Method for load figures from xml file and parsing by XmlWriter
         /// </summary>
         /// <param name="filename"></param>
-        public static void ReadFiguresByXmlReader(string filename)
+        public void ReadFiguresByXmlReader(string filename)
         {
-            string path = "figuresXmlWriter.xml";           
-            XmlReader reader = XmlReader.Create(path);
+            XmlReader reader = XmlReader.Create(filename);
             while (reader.Read())
             {
                 if (reader.Name == "figure")
@@ -260,7 +259,8 @@ namespace Task3FiguresLib
                     XmlNode materialNode = node.SelectSingleNode("material");
 
                     Colors color = (Colors)Enum.Parse(typeof(Colors), colorNode.InnerText);
-                    Materials material = (Materials)Enum.Parse(typeof(Materials), materialNode.InnerText);
+                    MaterialTypes materialType = (MaterialTypes)Enum.Parse(typeof(MaterialTypes), materialNode.InnerText);
+                    Material material = new Material(materialType);
 
                     if (figureTypeNode.InnerText == "Square")
                     {
@@ -268,9 +268,9 @@ namespace Task3FiguresLib
                         double squareSide = Convert.ToDouble(squareSideNode.InnerText);
 
                         Square square = new Square(material, squareSide);
-                        if(material == Materials.Paper)
+                        if (materialType == MaterialTypes.Paper)
                         {
-                            square.ToPaint(color);
+                            square.Material.Paint(color);
                         }
 
                         figures.Add(square);
@@ -281,9 +281,9 @@ namespace Task3FiguresLib
                         double circleRadius = Convert.ToDouble(circleRadiusNode.InnerText);
 
                         Circle circle = new Circle(material, circleRadius);
-                        if (material == Materials.Paper)
+                        if (materialType == MaterialTypes.Paper)
                         {
-                            circle.ToPaint(color);
+                            circle.Material.Paint(color);
                         }
 
                         figures.Add(circle);
@@ -295,14 +295,14 @@ namespace Task3FiguresLib
                         double triangleSide = Convert.ToDouble(triangleSideNode.InnerText);
 
                         Triangle triangle = new Triangle(material, triangleSide);
-                        if (material == Materials.Paper)
+                        if (material.MaterialType == MaterialTypes.Paper)
                         {
-                            triangle.ToPaint(color);
+                            triangle.Material.Paint(color);
                         }
 
                         figures.Add(triangle);
                     }
-                }  
+                }
             }
         }
 
@@ -310,15 +310,15 @@ namespace Task3FiguresLib
         /// Method for load figures from xml file and parsing by StreamWriter
         /// </summary>
         /// <param name="filename"></param>
-        public static void ReadFiguresByStreamReader(string filename)
+        public void ReadFiguresByStreamReader(string filename)
         {
-            string path = "figuresStreamWriter.xml";
+            //string path = "figuresStreamWriter.xml";
             Regex tag = new Regex(@"<[0-9a-zA-Z]+>");
             Regex value = new Regex(@"[\^\>][0-9a-zA-Z]+");
-            StreamReader reader = new StreamReader(path);
+            StreamReader reader = new StreamReader(filename);
             string file = reader.ReadToEnd();
-            string[] items = file.Split( new string[] { "<figure>" }, StringSplitOptions.RemoveEmptyEntries);
-            for(int i = 1; i < items.Length; i++)
+            string[] items = file.Split(new string[] { "<figure>" }, StringSplitOptions.RemoveEmptyEntries);
+            for (int i = 1; i < items.Length; i++)
             {
                 string[] block = items[i].Split(new string[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
 
@@ -332,15 +332,16 @@ namespace Task3FiguresLib
                 }
 
                 Colors color = (Colors)Enum.Parse(typeof(Colors), values[1]);
-                Materials material = (Materials)Enum.Parse(typeof(Materials), values[2]);
+                MaterialTypes materialType = (MaterialTypes)Enum.Parse(typeof(MaterialTypes), values[2]);
+                Material material = new Material(materialType);
 
-                if(values.First() == "Square")
+                if (values.First() == "Square")
                 {
                     double squareSide = Convert.ToDouble(values[3]);
                     Square square = new Square(material, squareSide);
-                    if (material == Materials.Paper)
+                    if (materialType == MaterialTypes.Paper)
                     {
-                        square.ToPaint(color);
+                        square.Material.Paint(color);
                     }
                     figures.Add(square);
                 }
@@ -348,9 +349,9 @@ namespace Task3FiguresLib
                 {
                     double circleRadius = Convert.ToDouble(values[3]);
                     Circle circle = new Circle(material, circleRadius);
-                    if (material == Materials.Paper)
+                    if (materialType == MaterialTypes.Paper)
                     {
-                        circle.ToPaint(color);
+                        circle.Material.Paint(color);
                     }
                     figures.Add(circle);
                 }
@@ -358,9 +359,9 @@ namespace Task3FiguresLib
                 {
                     double triangleSide = Convert.ToDouble(values[3]);
                     Triangle triangle = new Triangle(material, triangleSide);
-                    if (material == Materials.Paper)
+                    if (materialType == MaterialTypes.Paper)
                     {
-                        triangle.ToPaint(color);
+                        triangle.Material.Paint(color);
                     }
                     figures.Add(triangle);
                 }
@@ -370,7 +371,7 @@ namespace Task3FiguresLib
         /// <summary>
         /// Method for cleaning collection
         /// </summary>
-        public static void ClearBox()
+        public void ClearBox()
         {
             figures.Clear();
         }

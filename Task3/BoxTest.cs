@@ -15,16 +15,35 @@ namespace Task3
     public class BoxTest
     {
         /// <summary>
+        /// Field which store Box object
+        /// </summary>
+        private Box box = new Box();
+
+        #region
+        /// <summary>
         /// Collection of testable figures
         /// </summary>
         private List<Figure> figures = new List<Figure>()
         {
-            new Circle(Materials.Paper, 5),
-            new Triangle(Materials.Paper, 7),
-            new Triangle(Materials.Envelope, 3),
-            new Square(Materials.Paper, 4),
-            new Circle(Materials.Envelope, 8)
+            new Circle(new Material(MaterialTypes.Paper), 5),
+            new Triangle(new Material(MaterialTypes.Paper), 7),
+            new Triangle(new Material(MaterialTypes.Envelope), 3),
+            new Square(new Material(MaterialTypes.Paper), 4),
+            new Circle(new Material(MaterialTypes.Envelope), 8)
         };
+
+        /// <summary>
+        /// Collection of testable colors
+        /// </summary>
+        List<Colors> colors = new List<Colors>()
+        {
+            Colors.Red,
+            Colors.Red,
+            Colors.Colorless,
+            Colors.Red,
+            Colors.Colorless
+        };
+        #endregion
 
         /// <summary>
         /// Test method on add figure to Box collection
@@ -32,9 +51,9 @@ namespace Task3
         [TestMethod]
         public void AddFigureTest()
         {
-            Box.ClearBox();
+            box.ClearBox();
             AddFiguresToBox();
-            Assert.AreEqual(Box.ShowQuantity(), figures.Count);
+            Assert.AreEqual(box.ShowQuantity(), figures.Count);
         }
 
         /// <summary>
@@ -44,10 +63,10 @@ namespace Task3
         public void ShowByNumberTest()
         {
             int number = 3;
-            Box.ClearBox();
+            box.ClearBox();
             AddFiguresToBox();
             Figure figure1 = figures[number - 1];
-            Figure figure2 = Box.ShowByNumber(number);
+            Figure figure2 = box.ShowByNumber(number);
             Assert.AreEqual(figure1, figure2);
         }
 
@@ -58,10 +77,10 @@ namespace Task3
         public void ShowByNumberAndRemoveTest()
         {
             int number = 3;
-            Box.ClearBox();
+            box.ClearBox();
             AddFiguresToBox();
-            Figure figure = Box.ShowByNumberAndRemove(number);
-            Assert.AreEqual(false, Box.Figures.Contains(figure));
+            Figure figure = box.ShowByNumberAndRemove(number);
+            Assert.AreEqual(false, box.Figures.Contains(figure));
         }
 
         /// <summary>
@@ -71,11 +90,11 @@ namespace Task3
         public void ReplaceByNumberTest()
         {
             int number = 3;
-            Box.ClearBox();
+            box.ClearBox();
             AddFiguresToBox();
             Figure figure = new Square(figures.First());
-            Box.ReplaceByNumber(figure, number);
-            Assert.AreEqual(figure, Box.ShowByNumber(number));
+            box.ReplaceByNumber(figure, number);
+            Assert.AreEqual(figure, box.ShowByNumber(number));
         }
 
         /// <summary>
@@ -84,10 +103,10 @@ namespace Task3
         [TestMethod]
         public void FindEquivalentTest()
         {
-            Box.ClearBox();
+            box.ClearBox();
             AddFiguresToBox();
-            List<Figure> result = Box.FindEquivalent(figures.First());
-            List<Figure> sameFigures = figures.Where(o => o.Color.Equals(figures.First().Color) && o.Material.Equals(figures.First().Material)).ToList();
+            List<Figure> result = box.FindEquivalent(figures.First());
+            List<Figure> sameFigures = figures.Where(o => o.Material.Color.Equals(figures.First().Material.Color) && o.Material.Equals(figures.First().Material)).ToList();
 
             for(int i = 0; i < result.Count; i++)
             {
@@ -101,9 +120,9 @@ namespace Task3
         [TestMethod]
         public void ShowSquareTest()
         {
-            Box.ClearBox();
+            box.ClearBox();
             AddFiguresToBox();
-            double result = Box.ShowSquareSum();
+            double result = box.ShowSquareSum();
             double squareSum = figures.Sum(o => o.GetSquare());
             Assert.AreEqual(result, squareSum);
         }
@@ -114,9 +133,9 @@ namespace Task3
         [TestMethod]
         public void ShowPerimetrTest()
         {
-            Box.ClearBox();
+            box.ClearBox();
             AddFiguresToBox();
-            double result = Box.ShowPrimetrSum();
+            double result = box.ShowPrimetrSum();
             double perimetrSum = figures.Sum(o => o.GetPerimetr());
             Assert.AreEqual(result, perimetrSum);
         }
@@ -127,9 +146,9 @@ namespace Task3
         [TestMethod]
         public void ShowCiclesTest()
         {
-            Box.ClearBox();
+            box.ClearBox();
             AddFiguresToBox();
-            List<Figure> result = Box.ShowCircles();
+            List<Figure> result = box.ShowCircles();
             for (int i = 0; i < result.Count; i++)
             {
                 Assert.AreEqual(result[i].GetType(), typeof(Circle));
@@ -142,12 +161,12 @@ namespace Task3
         [TestMethod]
         public void ShowEnvelopeFiguresTest()
         {
-            Box.ClearBox();
+            box.ClearBox();
             AddFiguresToBox();
-            List<Figure> result = Box.ShowEnvelopeFigures();
+            List<Figure> result = box.ShowEnvelopeFigures();
             for (int i = 0; i < result.Count; i++)
             {
-                Assert.AreEqual(result[i].Material, Materials.Envelope);
+                Assert.AreEqual(result[i].Material.MaterialType, MaterialTypes.Envelope);
             }
         }
 
@@ -157,12 +176,12 @@ namespace Task3
         [TestMethod]
         public void SaveAndReadAllFiguresByXmlWriterAndXmlReaderTest()
         {
-            Box.ClearBox();
+            box.ClearBox();
             AddFiguresToBox();
-            Box.SaveFiguresByXmlWriter(SaveModes.All, "allFiguresXml.xml");
-            Box.ReadFiguresByXmlReader("allFiguresXml.xml");
+            box.SaveFiguresByXmlWriter(SaveModes.All, "allFiguresXml.xml");
+            box.ReadFiguresByXmlReader("allFiguresXml.xml");
             int count = figures.Count();
-            int resultCount = Box.ShowQuantity();
+            int resultCount = box.ShowQuantity();
             Assert.AreEqual(count, resultCount);
         }
 
@@ -172,13 +191,33 @@ namespace Task3
         [TestMethod]
         public void SaveAndReadAllFiguresByXmlWriterAndStreamReaderTest()
         {
-            Box.ClearBox();
+            box.ClearBox();
             AddFiguresToBox();
-            Box.SaveFiguresByStreamWriter(SaveModes.All, "allFiguresStream.xml");
-            Box.ReadFiguresByStreamReader("allFiguresStream.xml");
+            box.SaveFiguresByStreamWriter(SaveModes.All, "allFiguresStream.xml");
+            box.ReadFiguresByStreamReader("allFiguresStream.xml");
             int count = figures.Count();
-            int resultCount = Box.ShowQuantity();
+            int resultCount = box.ShowQuantity();
             Assert.AreEqual(count, resultCount);
+        }
+        /// <summary>
+        /// Test method for paint figures
+        /// </summary>
+        [TestMethod]
+        public void PaintFiguresTest()
+        {
+
+            bool isEqual = false;
+            foreach(var figure in figures)
+            {
+                if(figure.Material.MaterialType == MaterialTypes.Paper)
+                    figure.Material.Paint(Colors.Red);
+            }
+
+            for(int i = 0; i < figures.Count; i++)
+            {
+                isEqual = figures[i].Material.Color == colors[i] ? true : false;
+            }
+            Assert.IsTrue(isEqual);
         }
 
         /// <summary>
@@ -188,7 +227,7 @@ namespace Task3
         {
             foreach (Figure figure in figures)
             {
-                Box.AddFigure(figure);
+                box.AddFigure(figure);
             }
         }
     }

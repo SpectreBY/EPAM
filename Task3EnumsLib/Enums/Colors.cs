@@ -9,10 +9,29 @@ namespace Task3EnumsLib.Enums
     /// </summary>
     public enum Colors
     {
+        /// <summary>
+        /// Colorless color
+        /// </summary>
         Colorless,
+
+        /// <summary>
+        /// White color
+        /// </summary>
         White,
+
+        /// <summary>
+        /// Red color
+        /// </summary>
         Red,
+
+        /// <summary>
+        /// Green color
+        /// </summary>
         Green,
+
+        /// <summary>
+        /// Blue color
+        /// </summary>
         Blue
     }
 }
