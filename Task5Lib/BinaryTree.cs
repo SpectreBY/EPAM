@@ -12,25 +12,41 @@ namespace Task5Lib
     /// Thats class represents binary tree
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class BinaryTree<T>
+    public class BinaryTree<T> where T : TestForm
     {
-        private List<Node<T>> nodes;
+        /// <summary>
+        /// List which store balanced nodes
+        /// </summary>
         private List<Node<T>> balancedNodes;
+
+        /// <summary>
+        /// List which store test forms
+        /// </summary>
         private List<T> testForms;
+
+        /// <summary>
+        /// Field which store reference on root node
+        /// </summary>
+        private Node<T> rootNode;
+
+        /// <summary>
+        /// Field which store reference on current node
+        /// </summary>
+        private Node<T> node;
+
+        /// <summary>
+        /// Field which store count of nodes
+        /// </summary>
+        private int nodesCount;
 
         /// <summary>
         /// Constructor without parameters
         /// </summary>
         public BinaryTree()
         {
-            nodes = new List<Node<T>>();
             testForms = new List<T>();
+            nodesCount = 0;
         }
-
-        /// <summary>
-        /// Property for accessing nodes of binary tree
-        /// </summary>
-        public List<Node<T>> Nodes { get => nodes; }
 
         /// <summary>
         /// Property for accessing nodes of balanced binary tree
@@ -40,7 +56,7 @@ namespace Task5Lib
         /// <summary>
         /// Property for accessing main root node of binary tree
         /// </summary>
-        public Node<T> GetNodesRoot { get => nodes.First();}
+        public Node<T> Root { get => rootNode; }
 
         /// <summary>
         /// Property for accessing main root node of balanced binary tree
@@ -53,71 +69,69 @@ namespace Task5Lib
         /// <param name="testForm"></param>
         public void AddToTree(T testForm)
         {
-            Node<T> node;
+            int testScore = 0;
+            if (testForm is MathTestForm)
+            {
+                MathTestForm form = testForm as MathTestForm;
+                testScore = form.TestScore;
+            }
+            else if (testForm is PhysicsTestForm)
+            {
+                PhysicsTestForm form = testForm as PhysicsTestForm;
+                testScore = form.TestScore;
+            }
             testForms.Add(testForm);
-            if (nodes.Count == 0)
+            if (nodesCount == 0)
             {
-                node = new Node<T>(testForm, null);
-                nodes.Add(node);
+                node = new Node<T>(testForm);
+                rootNode = node;
             }
-            else
+            if(nodesCount > 0)
             {
-                Node<T> root = nodes.First();
-                while(true)
-                {
-                    int testScore = 0;
-                    if (testForm is MathTestForm)
-                    {
-                        MathTestForm form = testForm as MathTestForm;
-                        testScore = form.TestScore;
-                    }
-                    else if (testForm is PhysicsTestForm)
-                    {
-                        PhysicsTestForm form = testForm as PhysicsTestForm;
-                        testScore = form.TestScore;
-                    }
-
-                    if (root.Value > testScore)
-                    {
-                        if(root.Left == null)
+                while (true)
+                {                  
+                    if (node.Value > testScore)
+                    {           
+                        if (node.Left == null)
                         {
-                            root.Left = new Node<T>(testForm, root);
-                            nodes.Add(root.Left);
+                            node.Left = new Node<T>(testForm);
                             break;
                         }
-                        if(root.Left != null)
+                        if (node.Left != null)
                         {
-                            root = root.Left;
+                            node.Left.Root = node;
+                            node = node.Left;
                             continue;
                         }
                     }
-                    if (root.Value <= testScore)
+                    if (node.Value <= testScore)
                     {
-                        if (root.Right == null)
+                        if (node.Right == null)
                         {
-                            root.Right = new Node<T>(testForm, root);
-                            nodes.Add(root.Right);
+                            node.Right = new Node<T>(testForm);
                             break;
                         }
-                        if (root.Right != null)
+                        if (node.Right != null)
                         {
-                            root = root.Right;
+                            node.Right.Root = node;
+                            node = node.Right;
                             continue;
                         }
                     }
-                }          
+                }
             }
+            node = rootNode;
+            nodesCount++;
         }
 
         /// <summary>
         /// Method for remove node from binary tree
         /// </summary>
-        /// <param name="index"></param>
-        public void RemoveFromTree(int index)
+        /// <param name="testform"></param>
+        public void RemoveFromTree(T testform)
         {
-            if (index > nodes.Count - 1 || index < 0)
-                throw new IndexOutOfRangeException();
-            Node<T> node = nodes[index];
+            Node<T> foundedNode = FindNodeByTestFormValue(testform);
+            Node<T> node = foundedNode;
 
             if (node.Left == null && node.Right == null)
             {
@@ -125,7 +139,7 @@ namespace Task5Lib
                 {
                     node.Root.Left = null;
                 }
-                else if(node.Root.Right.Equals(node))
+                else if (node.Root.Right.Equals(node))
                 {
                     node.Root.Right = null;
                 }
@@ -140,7 +154,6 @@ namespace Task5Lib
                 {
                     node.Root.Right = node.Right;
                 }
-
                 node.Right.Root = node.Root;
             }
             else if (node.Right == null)
@@ -153,7 +166,6 @@ namespace Task5Lib
                 {
                     node.Root.Right = node.Left;
                 }
-
                 node.Left.Root = node.Root;
             }
             else
@@ -171,7 +183,6 @@ namespace Task5Lib
                 }
                 else
                 {
-                    var bufLeft = node.Left;
                     var bufRightLeft = node.Right.Left;
                     var bufRightRight = node.Right.Right;
                     node.TestForm = node.Right.TestForm;
@@ -179,7 +190,56 @@ namespace Task5Lib
                     node.Left = bufRightLeft;
                 }
             }
-            nodes.RemoveAt(index);
+            foundedNode = null;
+        }
+
+        /// <summary>
+        /// Method for find node by test form value
+        /// </summary>
+        /// <param name="testForm"></param>
+        /// <returns></returns>
+        public Node<T> FindNodeByTestFormValue(T testForm)
+        {
+            int testScore = 0;
+            if (testForm is MathTestForm)
+            {
+                MathTestForm form = testForm as MathTestForm;
+                testScore = form.TestScore;
+            }
+            else if (testForm is PhysicsTestForm)
+            {
+                PhysicsTestForm form = testForm as PhysicsTestForm;
+                testScore = form.TestScore;
+            }
+            Node<T> currentNode = rootNode;
+            Node<T> resultNode;
+            while(true)
+            {
+                if(currentNode.Value == testScore)
+                {
+                    resultNode = currentNode;
+                    break;
+                }
+                else if(currentNode.Value > testScore)
+                {
+                    currentNode = currentNode.Left;
+                    if(currentNode == null)
+                    {
+                        return currentNode;
+                    }
+                    continue;
+                }
+                else if (currentNode.Value < testScore)
+                {
+                    currentNode = currentNode.Right;
+                    if (currentNode == null)
+                    {
+                        return currentNode;
+                    }
+                    continue;
+                }
+            }
+            return resultNode;
         }
 
         /// <summary>
@@ -187,15 +247,18 @@ namespace Task5Lib
         /// </summary>
         public void BalanceTree()
         {
-            balancedNodes = nodes.OrderBy(o => o.Value).ToList();
+            balancedNodes = new List<Node<T>>();
+            Node<T> node = rootNode;
+            AddNodesToList(node);
+            balancedNodes = balancedNodes.OrderBy(o => o.Value).ToList();
 
-            foreach (var node in balancedNodes)
+            foreach (var item in balancedNodes)
             {
-                node.Left = null;
-                node.Right = null;
+                item.Left = null;
+                item.Right = null;
             }
 
-            BalanceTree(0, nodes.Count - 1);
+            BalanceTree(0, balancedNodes.Count - 1);
         }
 
         /// <summary>
@@ -218,11 +281,25 @@ namespace Task5Lib
         }
 
         /// <summary>
+        /// Method for add nodes to collection
+        /// </summary>
+        /// <param name="node"></param>
+        private void AddNodesToList(Node<T> node)
+        {  
+            if (node != null)
+            {
+                AddNodesToList(node.Left);
+                AddNodesToList(node.Right);
+                balancedNodes.Add(node);
+            }
+        }
+
+        /// <summary>
         /// Method for write nodes of binary tree to xml file
         /// </summary>
         public bool Serialization()
         {
-            XmlSerializer formatter = new XmlSerializer(typeof(List<T>), new Type[] { typeof(MathTestForm), typeof(PhysicsTestForm)});
+            XmlSerializer formatter = new XmlSerializer(typeof(List<T>), new Type[] { typeof(MathTestForm), typeof(PhysicsTestForm) });
             using (FileStream fs = new FileStream("tests.xml", FileMode.Create, FileAccess.Write, FileShare.None))
             {
                 formatter.Serialize(fs, testForms);
