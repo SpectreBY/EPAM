@@ -45,8 +45,9 @@
     <Compile Include="BinaryTree.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Node.cs" />
-    <Compile Include="PhysicsTestForm.cs" />
-    <Compile Include="MathTestForm.cs" />
+    <Compile Include="TestForms\PhysicsTestForm.cs" />
+    <Compile Include="TestForms\MathTestForm.cs" />
+    <Compile Include="TestForms\TestForm.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

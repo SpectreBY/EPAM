@@ -7,15 +7,15 @@ using System.Threading.Tasks;
 namespace Task5Lib
 {
     /// <summary>
-    /// Thats class represents physics subject test form
+    /// 
     /// </summary>
     [Serializable]
-    public class PhysicsTestForm
+    public abstract class TestForm
     {
         /// <summary>
         /// Contructor without parameters
         /// </summary>
-        public PhysicsTestForm()
+        public TestForm()
         { }
 
         /// <summary>
@@ -25,7 +25,7 @@ namespace Task5Lib
         /// <param name="testName"></param>
         /// <param name="testDate"></param>
         /// <param name="testScore"></param>
-        public PhysicsTestForm(string studentName, string testName, DateTime testDate, int testScore)
+        public TestForm(string studentName, string testName, DateTime testDate, int testScore)
         {
             StudentName = studentName;
             TestName = testName;

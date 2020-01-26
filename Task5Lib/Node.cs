@@ -10,7 +10,7 @@ namespace Task5Lib
     /// Thats class represents node of binary tree
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class Node<T>
+    public class Node<T> where T : TestForm
     {
         private T testForm;
         private Node<T> root;
@@ -21,13 +21,11 @@ namespace Task5Lib
         /// Contructor with few parameters
         /// </summary>
         /// <param name="testForm"></param>
-        /// <param name="root"></param>
-        public Node(T testForm, Node<T> root)
+        public Node(T testForm)
         {
             this.testForm = testForm;
             left = null;
             right = null;
-            this.root = root;
         }
 
         /// <summary>

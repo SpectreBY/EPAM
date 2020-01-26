@@ -12,7 +12,7 @@ namespace Task5
     [TestClass]
     public class BinaryTreeTests
     {
-        private BinaryTree<object> binaryTree = new BinaryTree<object>();
+        private BinaryTree<TestForm> binaryTree = new BinaryTree<TestForm>();
         private List<int> nodeValues = new List<int>();
         private List<int> orderedNodeValues = new List<int>();
 
@@ -43,17 +43,9 @@ namespace Task5
         public void RemoveFromBinaryTreeTest()
         {
             AddNodes();
-            binaryTree.RemoveFromTree(3);
-            bool removed = true;
-            foreach(var node in binaryTree.Nodes)
-            {
-                if(node.TestForm.Equals(test4))
-                {
-                    removed = false;
-                    break;
-                }
-            }
-            Assert.IsTrue(removed);
+            binaryTree.RemoveFromTree(test3);
+            Node<TestForm> node = binaryTree.FindNodeByTestFormValue(test3);
+            Assert.IsNull(node);
         }
 
         /// <summary>
@@ -120,7 +112,7 @@ namespace Task5
         /// <returns></returns>
         private bool BinaryTreeEquals()
         {
-            Node<object> root = binaryTree.GetNodesRoot;
+            Node<TestForm> root = binaryTree.Root;
             if (root.Value != nodeValues[0])
                 return false;
             else if (root.Left.Value != nodeValues[1])
@@ -148,7 +140,7 @@ namespace Task5
         /// <returns></returns>
         private bool BalancedBinaryTreeEquals()
         {
-            Node<object> root = binaryTree.GetBalancedNodesRoot;
+            Node<TestForm> root = binaryTree.Root;
             if (root.Value != orderedNodeValues[4])
                 return false;
             else if (root.Left.Value != orderedNodeValues[1])
