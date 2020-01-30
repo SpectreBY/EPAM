@@ -33,8 +33,16 @@ namespace Task7ORM.Models
         [Column(Name = "SubjectsOfGroupId")]
         public int SubjectsOfGroupId { get; set; }
 
+        /// <summary>
+        /// Property which storage subjectds of group object
+        /// </summary>
+        [Column(Name = "TeacherId")]
+        public int TeacherId { get; set; }
+
         public Session Session { get; set; }
 
         public SubjectsOfGroup SubjectsOfGroup { get; set; }
+
+        public Teacher Teacher { get; set; }
     }
 }
