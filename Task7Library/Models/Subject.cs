@@ -9,7 +9,7 @@ namespace Task7ORM.Models
     public class Subject
     {
         /// <summary>
-        /// Property which storage name of group
+        /// Property which storage primary key of subject
         /// </summary>
         [Column(IsPrimaryKey = true, IsDbGenerated = false)]
         public int Id { get; set; }

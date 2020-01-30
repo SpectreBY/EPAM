@@ -25,8 +25,7 @@ CREATE TABLE [dbo].[Subjects]
 CREATE TABLE [dbo].[Sessions]
 (
 	[Id] INT NOT NULL PRIMARY KEY([Id] ASC), 
-    [EducationPeriodStart] INT NULL,
-	[EducationPeriodEnd] INT NULL,
+	[EducationPeriod] NVARCHAR(100) NULL,
     [Semestr] INT NULL
 );
 

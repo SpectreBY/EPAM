@@ -10,7 +10,7 @@ namespace Task7ORM.Models
     public class Student
     {
         /// <summary>
-        /// Property which storage name of group
+        /// Property which storage primary key of student
         /// </summary>
         [Column(IsPrimaryKey = true, IsDbGenerated = false)]
         public int Id { get; set; }
@@ -39,6 +39,9 @@ namespace Task7ORM.Models
         [Column(Name = "GroupId")]
         public int GroupId { get; set; }
 
+        /// <summary>
+        /// Property which storage group object
+        /// </summary>
         public Group Group { get; set; }
     }
 }

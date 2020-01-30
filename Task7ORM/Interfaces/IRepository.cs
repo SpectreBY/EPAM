@@ -36,7 +36,7 @@ namespace Task7ORM.Interfaces
         /// <summary>
         /// Method for delete entity by id value from the database
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="model"></param>
         /// <returns></returns>
         bool Delete(T model);
 

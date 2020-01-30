@@ -9,7 +9,7 @@ namespace Task7ORM.Models
     public class Group
     {
         /// <summary>
-        /// Property which storage name of group
+        /// Property which storage primary key of group
         /// </summary>
         [Column(IsPrimaryKey = true, IsDbGenerated = false)]
         public int Id { get; set; }
@@ -21,11 +21,14 @@ namespace Task7ORM.Models
         public string Name { get; set; }
 
         /// <summary>
-        /// Property which storage speciality of group
+        /// Property which storage speciality id
         /// </summary>
         [Column(Name = "SpecialityId")]
         public int SpecialityId { get; set; }
 
+        /// <summary>
+        /// Property which storage object of Speciality
+        /// </summary>
         public Speciality Speciality { get; set; }
     }
 }

@@ -11,22 +11,25 @@ namespace Task7ORM
     /// <summary>
     /// Repository class which represents realization of CRUD queries for Exams table
     /// </summary>
-    public class ExamRepository : IRepository<Exam>
+    public class GroupsRepository : IRepository<Group>
     {
         /// <summary>
         /// Field for storage database context object
         /// </summary>
         private DataContext dataContext;
-        private Table<Exam> table;
+        private DbContext dbContext;
+        private Table<Group> table;
 
         /// <summary>
         /// Construtor which get dataContext parametres
         /// </summary>
         /// <param name="dataContext"></param>
-        public ExamRepository(DataContext dataContext)
+        /// <param name="dbContext"></param>
+        public GroupsRepository(DataContext dataContext, DbContext dbContext)
         {
             this.dataContext = dataContext;
-            this.table = dataContext.GetTable<Exam>();
+            this.dbContext = dbContext;
+            this.table = dataContext.GetTable<Group>();
         }
 
         /// <summary>
@@ -41,11 +44,22 @@ namespace Task7ORM
         }
 
         /// <summary>
-        /// 
+        /// Property for access to dbContext field value
+        /// </summary>
+        public DbContext DbContext
+        {
+            get
+            {
+                return dbContext;
+            }
+        }
+
+        /// <summary>
+        /// Method for insert entity into the database
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public bool Create(Exam model)
+        public bool Create(Group model)
         {
             try
             {
@@ -59,13 +73,13 @@ namespace Task7ORM
                 return false;
             }        
         }
-        
+
         /// <summary>
-        /// 
+        /// Method for delete entity from the database
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public bool Delete(Exam model)
+        public bool Delete(Group model)
         {
             try
             {
@@ -80,34 +94,60 @@ namespace Task7ORM
         }
 
         /// <summary>
-        /// 
+        /// Method for select all entities from the database
         /// </summary>
         /// <returns></returns>
-        public List<Exam> GetAll()
+        public List<Group> GetAll()
         {
-            List<Exam> exams = table.ToList();
-            List<int> sessionsIds = exams.Select(o => o.SessionId).ToList();
-            List<Session> sessions = dataContext.GetTable<Session>().Where(o => sessionsIds.Contains(o.Id)).ToList();
-            foreach(Exam exam in exams)
+            List<Group> groups = table.ToList();
+            List<int> specialitiesIds = groups.Select(o => o.SpecialityId).ToList();
+
+            List<Speciality> specialities = dbContext.SpecialitiesRepository
+                                                     .GetAll()
+                                                     .Where(o => specialitiesIds.Contains(o.Id))
+                                                     .ToList();
+
+            foreach (Group group in groups)
             {
-                Session session = sessions.Where(o => o.Id == exam.SessionId).FirstOrDefault();
-                exam.Session = session;
+                Speciality speciality = specialities.FirstOrDefault(o => o.Id == group.SpecialityId);
+                group.Speciality = speciality;
             }
-            return table.ToList();
+
+            return groups;
         }
 
         /// <summary>
-        /// 
+        /// Method for select entity from the database by it's id
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public Exam GetById(int id)
+        public Group GetById(int id)
         {
-            return table.Where(o => o.Id == id).FirstOrDefault();
+            Group group = table.FirstOrDefault(o => o.Id == id);
+            group.Speciality = dataContext.GetTable<Speciality>()
+                                          .FirstOrDefault(o => o.Id == group.SpecialityId);
+            return group;
         }
 
         /// <summary>
-        /// 
+        /// Method for update entity in the database
+        /// </summary>
+        /// <returns></returns>
+        public bool Update()
+        {
+            try
+            {
+                dataContext.SubmitChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Helper method for generate unique key (id)
         /// </summary>
         /// <returns></returns>
         public int GetUniqueKey()
@@ -126,24 +166,6 @@ namespace Task7ORM
                 }
             }
             return newId;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public bool Update()
-        {
-            try
-            {
-                dataContext.SubmitChanges();
-                return true;
-            }
-            catch (Exception ex)
-            {
-                return false;
-            }
-
         }
     }
 }

@@ -11,22 +11,25 @@ namespace Task7ORM
     /// <summary>
     /// Repository class which represents realization of CRUD queries for Exams table
     /// </summary>
-    public class GroupRepository : IRepository<Group>
+    public class TeachersRepository : IRepository<Teacher>
     {
         /// <summary>
         /// Field for storage database context object
         /// </summary>
         private DataContext dataContext;
-        private Table<Group> table;
+        private DbContext dbContext;
+        private Table<Teacher> table;
 
         /// <summary>
         /// Construtor which get dataContext parametres
         /// </summary>
         /// <param name="dataContext"></param>
-        public GroupRepository(DataContext dataContext)
+        /// <param name="dbContext"></param>
+        public TeachersRepository(DataContext dataContext, DbContext dbContext)
         {
             this.dataContext = dataContext;
-            this.table = dataContext.GetTable<Group>();
+            this.dbContext = dbContext;
+            this.table = dataContext.GetTable<Teacher>();
         }
 
         /// <summary>
@@ -41,11 +44,22 @@ namespace Task7ORM
         }
 
         /// <summary>
-        /// 
+        /// Property for access to dbContext field value
+        /// </summary>
+        public DbContext DbContext
+        {
+            get
+            {
+                return dbContext;
+            }
+        }
+
+        /// <summary>
+        /// Method for insert entity into the database
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public bool Create(Group model)
+        public bool Create(Teacher model)
         {
             try
             {
@@ -61,11 +75,11 @@ namespace Task7ORM
         }
 
         /// <summary>
-        /// 
+        /// Method for delete entity from the database
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public bool Delete(Group model)
+        public bool Delete(Teacher model)
         {
             try
             {
@@ -80,26 +94,26 @@ namespace Task7ORM
         }
 
         /// <summary>
-        /// 
+        /// Method for select all entities from the database
         /// </summary>
         /// <returns></returns>
-        public List<Group> GetAll()
+        public List<Teacher> GetAll()
         {
             return table.ToList();
         }
 
         /// <summary>
-        /// 
+        /// Method for select entity from the database by it's id
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public Group GetById(int id)
+        public Teacher GetById(int id)
         {
             return table.Where(o => o.Id == id).FirstOrDefault();
         }
 
         /// <summary>
-        /// 
+        /// Method for update entity in the database
         /// </summary>
         /// <returns></returns>
         public bool Update()
@@ -116,7 +130,7 @@ namespace Task7ORM
         }
 
         /// <summary>
-        /// 
+        /// Helper method for generate unique key (id)
         /// </summary>
         /// <returns></returns>
         public int GetUniqueKey()

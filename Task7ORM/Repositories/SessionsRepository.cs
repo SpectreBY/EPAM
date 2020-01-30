@@ -11,22 +11,25 @@ namespace Task7ORM
     /// <summary>
     /// Repository class which represents realization of CRUD queries for Exams table
     /// </summary>
-    public class StudentOfExamRepository : IRepository<Student>
+    public class SessionsRepository : IRepository<Session>
     {
         /// <summary>
         /// Field for storage database context object
         /// </summary>
         private DataContext dataContext;
-        private Table<Student> table;
+        private DbContext dbContext;
+        private Table<Session> table;
 
         /// <summary>
         /// Construtor which get dataContext parametres
         /// </summary>
         /// <param name="dataContext"></param>
-        public StudentOfExamRepository(DataContext dataContext)
+        /// <param name="dbContext"></param>
+        public SessionsRepository(DataContext dataContext, DbContext dbContext)
         {
             this.dataContext = dataContext;
-            this.table = dataContext.GetTable<Student>();
+            this.dbContext = dbContext;
+            this.table = dataContext.GetTable<Session>();
         }
 
         /// <summary>
@@ -41,11 +44,22 @@ namespace Task7ORM
         }
 
         /// <summary>
-        /// 
+        /// Property for access to dbContext field value
+        /// </summary>
+        public DbContext DbContext
+        {
+            get
+            {
+                return dbContext;
+            }
+        }
+
+        /// <summary>
+        /// Method for insert entity into the database
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public bool Create(Student model)
+        public bool Create(Session model)
         {
             try
             {
@@ -59,13 +73,13 @@ namespace Task7ORM
                 return false;
             }        
         }
-        
+
         /// <summary>
-        /// 
+        /// Method for delete entity from the database
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public bool Delete(Student model)
+        public bool Delete(Session model)
         {
             try
             {
@@ -80,34 +94,43 @@ namespace Task7ORM
         }
 
         /// <summary>
-        /// 
+        /// Method for select all entities from the database
         /// </summary>
         /// <returns></returns>
-        public List<Student> GetAll()
+        public List<Session> GetAll()
         {
-            //List<ResultsOfExam> exams = table.ToList();
-            //List<int> sessionsIds = exams.Select(o => o.SessionId).ToList();
-            //List<ResultsOfExam> sessions = dataContext.GetTable<ResultsOfExam>().Where(o => sessionsIds.Contains(o.Id)).ToList();
-            //foreach(Exam exam in exams)
-            //{
-            //    Session session = sessions.Where(o => o.Id == exam.SessionId).FirstOrDefault();
-            //    exam.Session = session;
-            //}
             return table.ToList();
         }
 
         /// <summary>
-        /// 
+        /// Method for select entity from the database by it's id
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public Student GetById(int id)
+        public Session GetById(int id)
         {
             return table.Where(o => o.Id == id).FirstOrDefault();
         }
 
         /// <summary>
-        /// 
+        /// Method for update entity in the database
+        /// </summary>
+        /// <returns></returns>
+        public bool Update()
+        {
+            try
+            {
+                dataContext.SubmitChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Helper method for generate unique key (id)
         /// </summary>
         /// <returns></returns>
         public int GetUniqueKey()
@@ -126,24 +149,6 @@ namespace Task7ORM
                 }
             }
             return newId;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public bool Update()
-        {
-            try
-            {
-                dataContext.SubmitChanges();
-                return true;
-            }
-            catch (Exception ex)
-            {
-                return false;
-            }
-
         }
     }
 }

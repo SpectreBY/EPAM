@@ -9,7 +9,7 @@ namespace Task7ORM.Models
     public class Teacher
     {
         /// <summary>
-        /// Property which storage name of group
+        /// Property which storage primary key of teacher
         /// </summary>
         [Column(IsPrimaryKey = true, IsDbGenerated = false)]
         public int Id { get; set; }

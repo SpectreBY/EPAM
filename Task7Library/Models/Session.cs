@@ -9,7 +9,7 @@ namespace Task7ORM.Models
     public class Session
     {
         /// <summary>
-        /// Property which storage name of group
+        /// Property which storage primary key of session
         /// </summary>
         [Column(IsPrimaryKey = true, IsDbGenerated = false)]
         public int Id { get; set; }
@@ -17,14 +17,8 @@ namespace Task7ORM.Models
         /// <summary>
         /// Property which storage education period of session
         /// </summary>
-        [Column(Name = "EducationPeriodStart")]
-        public int EducationPeriod { get; set; }
-
-        /// <summary>
-        /// Property which storage education period of session
-        /// </summary>
-        [Column(Name = "EducationPeriodEnd")]
-        public int EducationPeriodEnd { get; set; }
+        [Column(Name = "EducationPeriod")]
+        public string EducationPeriod { get; set; }
 
         /// <summary>
         /// Property which storage semestr of education period

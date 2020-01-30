@@ -9,19 +9,19 @@ namespace Task7ORM.Models
     public class ResultsOfExam
     {
         /// <summary>
-        /// Property which storage name of group
+        /// Property which storage primary key of results of exam
         /// </summary>
         [Column(IsPrimaryKey = true, IsDbGenerated = false)]
         public int Id { get; set; }
 
         /// <summary>
-        /// Property which storage exam object
+        /// Property which storage exam id
         /// </summary>
         [Column(Name = "ExamId")]
         public int ExamId { get; set; }
 
         /// <summary>
-        /// Property which storage student object
+        /// Property which storage student id
         /// </summary>
         [Column(Name = "StudentId")]
         public int StudentId { get; set; }
@@ -32,8 +32,14 @@ namespace Task7ORM.Models
         [Column(Name = "Result")]
         public int Result { get; set; }
 
+        /// <summary>
+        /// Property which storage object of Exam
+        /// </summary>
         public Exam Exam { get; set; }
 
+        /// <summary>
+        /// Property which storage object of Student
+        /// </summary>
         public Student Student { get; set; }
     }
 }

@@ -11,22 +11,25 @@ namespace Task7ORM
     /// <summary>
     /// Repository class which represents realization of CRUD queries for Exams table
     /// </summary>
-    public class SpecialityRepository : IRepository<Speciality>
+    public class StudentsRepository : IRepository<Student>
     {
         /// <summary>
         /// Field for storage database context object
         /// </summary>
         private DataContext dataContext;
-        private Table<Speciality> table;
+        private DbContext dbContext;
+        private Table<Student> table;
 
         /// <summary>
         /// Construtor which get dataContext parametres
         /// </summary>
         /// <param name="dataContext"></param>
-        public SpecialityRepository(DataContext dataContext)
+        /// <param name="dbContext"></param>
+        public StudentsRepository(DataContext dataContext, DbContext dbContext)
         {
             this.dataContext = dataContext;
-            this.table = dataContext.GetTable<Speciality>();
+            this.dbContext = dbContext;
+            this.table = dataContext.GetTable<Student>();
         }
 
         /// <summary>
@@ -41,11 +44,22 @@ namespace Task7ORM
         }
 
         /// <summary>
-        /// 
+        /// Property for access to dbContext field value
+        /// </summary>
+        public DbContext DbContext
+        {
+            get
+            {
+                return dbContext;
+            }
+        }
+
+        /// <summary>
+        /// Method for insert entity into the database
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public bool Create(Speciality model)
+        public bool Create(Student model)
         {
             try
             {
@@ -61,11 +75,11 @@ namespace Task7ORM
         }
 
         /// <summary>
-        /// 
+        /// Method for delete entity from the database
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public bool Delete(GroSpecialityup model)
+        public bool Delete(Student model)
         {
             try
             {
@@ -80,26 +94,43 @@ namespace Task7ORM
         }
 
         /// <summary>
-        /// 
+        /// Method for select all entities from the database
         /// </summary>
         /// <returns></returns>
-        public List<Speciality> GetAll()
+        public List<Student> GetAll()
         {
-            return table.ToList();
+            List<Student> students = table.ToList();
+            List<int> groupsIds = students.Select(o => o.GroupId).ToList();
+
+            List<Group> groups = dbContext.GroupsRepository
+                                          .GetAll()
+                                          .Where(o => groupsIds.Contains(o.Id))
+                                          .ToList();
+
+            foreach (Student student in students)
+            {
+                Group group = groups.FirstOrDefault(o => o.Id == student.GroupId);
+                student.Group = group;
+            }
+
+            return students;
         }
 
         /// <summary>
-        /// 
+        /// Method for select entity from the database by it's id
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public Speciality GetById(int id)
+        public Student GetById(int id)
         {
-            return table.Where(o => o.Id == id).FirstOrDefault();
+            Student student = table.FirstOrDefault(o => o.Id == id);
+            student.Group = dataContext.GetTable<Group>()
+                                       .FirstOrDefault(o => o.Id == student.GroupId);
+            return student;
         }
 
         /// <summary>
-        /// 
+        /// Method for update entity in the database
         /// </summary>
         /// <returns></returns>
         public bool Update()
@@ -116,7 +147,7 @@ namespace Task7ORM
         }
 
         /// <summary>
-        /// 
+        /// Helper method for generate unique key (id)
         /// </summary>
         /// <returns></returns>
         public int GetUniqueKey()
