@@ -17,8 +17,14 @@ namespace Task7ORM.Models
         /// <summary>
         /// Property which storage education period of session
         /// </summary>
-        [Column(Name = "EducationPeriod")]
-        public string EducationPeriod { get; set; }
+        [Column(Name = "EducationPeriodStart")]
+        public int EducationPeriod { get; set; }
+
+        /// <summary>
+        /// Property which storage education period of session
+        /// </summary>
+        [Column(Name = "EducationPeriodEnd")]
+        public int EducationPeriodEnd { get; set; }
 
         /// <summary>
         /// Property which storage semestr of education period

@@ -1,6 +1,6 @@
-﻿CREATE DATABASE Task6DB;
+﻿CREATE DATABASE Task7DB;
 GO
-USE Task6DB;
+USE Task7DB;
 GO
 CREATE TABLE [dbo].[Specialities]
 (
@@ -13,7 +13,7 @@ CREATE TABLE [dbo].[Groups]
 	[Id] INT NOT NULL PRIMARY KEY([Id] ASC),
 	[SpecialityId] INT NULL,
     [Name] NVARCHAR(50) NULL,
-	CONSTRAINT fk_speciality FOREIGN KEY([SpecialityId]) REFERENCES [dbo].[Speciality]([Id])
+	CONSTRAINT fk_speciality FOREIGN KEY([SpecialityId]) REFERENCES [dbo].[Specialities]([Id])
 );
 
 CREATE TABLE [dbo].[Subjects]
@@ -25,7 +25,8 @@ CREATE TABLE [dbo].[Subjects]
 CREATE TABLE [dbo].[Sessions]
 (
 	[Id] INT NOT NULL PRIMARY KEY([Id] ASC), 
-    [EducationPeriod] NVARCHAR(50) NULL,
+    [EducationPeriodStart] INT NULL,
+	[EducationPeriodEnd] INT NULL,
     [Semestr] INT NULL
 );
 

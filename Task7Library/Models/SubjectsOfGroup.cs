@@ -25,5 +25,9 @@ namespace Task7ORM.Models
         /// </summary>
         [Column(Name = "SubjectId")]
         public int SubjectId { get; set; }
+
+        public Group Group { get; set; }
+
+        public Subject Subject { get; set; }
     }
 }

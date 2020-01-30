@@ -1,14 +1,25 @@
-﻿USE Task6DB;
+﻿USE Task7DB;
 
-INSERT INTO Sessions (Id, EducationPeriod, Semestr) VALUES ('0','2018-2019','1');
-INSERT INTO Sessions (Id, EducationPeriod, Semestr) VALUES ('1','2018-2019','2');
-INSERT INTO Sessions (Id, EducationPeriod, Semestr) VALUES ('2','2019-2020','1');
-INSERT INTO Sessions (Id, EducationPeriod, Semestr) VALUES ('3','2019-2020','2');
+INSERT INTO Specialities (Id, Name) VALUES ('0','Инженер-программист');
+INSERT INTO Specialities (Id, Name) VALUES ('1','Инженер-системный программист');
 
-INSERT INTO Groups (Id, Name) VALUES ('0','ИТ-11');
-INSERT INTO Groups (Id, Name) VALUES ('1','ИТ-21');
-INSERT INTO Groups (Id, Name) VALUES ('2','ИТ-31');
-INSERT INTO Groups (Id, Name) VALUES ('3','ИТ-41');
+INSERT INTO Teachers (Id, FullName, Gender) VALUES ('0','Зиновьев Георгий Сергеевич','М');
+INSERT INTO Teachers (Id, FullName, Gender) VALUES ('1','Морозова София Вадимовна','Ж');
+INSERT INTO Teachers (Id, FullName, Gender) VALUES ('2','Петренко Борис Максимович','М');
+INSERT INTO Teachers (Id, FullName, Gender) VALUES ('3','Котовска Олеся Григорьевна','Ж');
+INSERT INTO Teachers (Id, FullName, Gender) VALUES ('4','Суханов Давид Петровичч','М');
+
+INSERT INTO Sessions (Id, EducationPeriodStart, EducationPeriodEnd, Semestr) VALUES ('0','2018','2019','1');
+INSERT INTO Sessions (Id, EducationPeriodStart, EducationPeriodEnd, Semestr) VALUES ('1','2018','2019','2');
+INSERT INTO Sessions (Id, EducationPeriodStart, EducationPeriodEnd, Semestr) VALUES ('2','2019','2020','1');
+INSERT INTO Sessions (Id, EducationPeriodStart, EducationPeriodEnd, Semestr) VALUES ('3','2019','2020','2');
+
+INSERT INTO Groups (Id, Name, SpecialityId) VALUES ('0','ИТ-11','0');
+INSERT INTO Groups (Id, Name, SpecialityId) VALUES ('1','ИТ-21','0');
+INSERT INTO Groups (Id, Name, SpecialityId) VALUES ('2','ИТ-31','0');
+INSERT INTO Groups (Id, Name, SpecialityId) VALUES ('3','ИТ-41','0');
+INSERT INTO Groups (Id, Name, SpecialityId) VALUES ('4','ИТП-11','1');
+INSERT INTO Groups (Id, Name, SpecialityId) VALUES ('5','ИТП-21','1');
 
 INSERT INTO Subjects (Id, Name) VALUES ('0','ПСП');
 INSERT INTO Subjects (Id, Name) VALUES ('1','КСКР');
@@ -22,11 +33,11 @@ INSERT INTO SubjectsOfGroups (Id, GroupId, SubjectId) VALUES ('2','1','4');
 INSERT INTO SubjectsOfGroups (Id, GroupId, SubjectId) VALUES ('3','2','1');
 INSERT INTO SubjectsOfGroups (Id, GroupId, SubjectId) VALUES ('4','3','0');
 
-INSERT INTO Exams (Id, SessionId, ExamDate, SubjectsOfGroupId) VALUES ('0','0','21.12.2019','4');
-INSERT INTO Exams (Id, SessionId, ExamDate, SubjectsOfGroupId) VALUES ('1','1','23.12.2019','3');
-INSERT INTO Exams (Id, SessionId, ExamDate, SubjectsOfGroupId) VALUES ('2','2','17.12.2018','2');
-INSERT INTO Exams (Id, SessionId, ExamDate, SubjectsOfGroupId) VALUES ('3','3','20.05.2019','1');
-INSERT INTO Exams (Id, SessionId, ExamDate, SubjectsOfGroupId) VALUES ('4','3','22.05.2019','0');
+INSERT INTO Exams (Id, SessionId, ExamDate, SubjectsOfGroupId, TeacherId) VALUES ('0','0','21.12.2019','4','1');
+INSERT INTO Exams (Id, SessionId, ExamDate, SubjectsOfGroupId, TeacherId) VALUES ('1','1','23.12.2019','3','4');
+INSERT INTO Exams (Id, SessionId, ExamDate, SubjectsOfGroupId, TeacherId) VALUES ('2','2','17.12.2018','2','3');
+INSERT INTO Exams (Id, SessionId, ExamDate, SubjectsOfGroupId, TeacherId) VALUES ('3','3','20.05.2019','1','2');
+INSERT INTO Exams (Id, SessionId, ExamDate, SubjectsOfGroupId, TeacherId) VALUES ('4','3','22.05.2019','0','0');
 
 INSERT INTO Students (Id, FullName, Gender, DateOfBirth, GroupId) VALUES ('0','Масловский Сергей Витальевич','М','07.02.1996','3');
 INSERT INTO Students (Id, FullName, Gender, DateOfBirth, GroupId) VALUES ('1','Иванова Мария Олеговна','Ж','01.05.1998','2');

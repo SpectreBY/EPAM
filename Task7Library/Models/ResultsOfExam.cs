@@ -31,5 +31,9 @@ namespace Task7ORM.Models
         /// </summary>
         [Column(Name = "Result")]
         public int Result { get; set; }
+
+        public Exam Exam { get; set; }
+
+        public Student Student { get; set; }
     }
 }

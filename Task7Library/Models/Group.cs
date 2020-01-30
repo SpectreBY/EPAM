@@ -25,5 +25,7 @@ namespace Task7ORM.Models
         /// </summary>
         [Column(Name = "SpecialityId")]
         public int SpecialityId { get; set; }
+
+        public Speciality Speciality { get; set; }
     }
 }

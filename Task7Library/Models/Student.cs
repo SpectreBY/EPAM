@@ -38,5 +38,7 @@ namespace Task7ORM.Models
         /// </summary>
         [Column(Name = "GroupId")]
         public int GroupId { get; set; }
+
+        public Group Group { get; set; }
     }
 }
