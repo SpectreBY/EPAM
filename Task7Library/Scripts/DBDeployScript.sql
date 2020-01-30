@@ -4,8 +4,10 @@ USE Task6DB;
 GO
 CREATE TABLE [dbo].[Groups]
 (
-	[Id] INT NOT NULL PRIMARY KEY([Id] ASC), 
-    [Name] NVARCHAR(50) NULL
+	[Id] INT NOT NULL PRIMARY KEY([Id] ASC),
+	[SpecialityId] INT NULL,
+    [Name] NVARCHAR(50) NULL,
+	CONSTRAINT fk_subjectsOfGroups_1 FOREIGN KEY([GroupId]) REFERENCES [dbo].[Groups]([Id]),
 );
 
 CREATE TABLE [dbo].[Subjects]
